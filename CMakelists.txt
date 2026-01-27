@@ -20,6 +20,7 @@ target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_LIB})
 if(WIN32)
     target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_LIB}/windows)
     target_link_libraries(${PROJECT_NAME} PRIVATE SDL3 winmm gdi32 opengl32)
+    target_link_options(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Debug>:-fuse-ld=lld>
         $<$<CONFIG:Release>:-O3 -fuse-ld=lld -Wl,/SUBSYSTEM:WINDOWS -Wl,/ENTRY:mainCRTStartup>
     )
