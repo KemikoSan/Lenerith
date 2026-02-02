@@ -4,14 +4,15 @@
 namespace Lenerith {
 class Config {
 public:
-  Uint32 screenWidth = 800;
-  Uint32 screenHeight = 600;
-  bool fullscreen = false;
-  bool borderlessWindow = true;
+  Uint32 screenWidth;
+  Uint32 screenHeight;
+  bool fullscreen;
+  bool borderlessWindow;
+  bool vsync;
   float masterVolume;
   float soundVolume;
   float musicVolume;
   void loadConfig();
-  void saveConfig();
+  void saveConfig(const Config &config);
 };
 }; // namespace Lenerith

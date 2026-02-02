@@ -1,9 +1,11 @@
+#include "Lenerith/Core/Window.h"
 #include "SDL3/SDL_events.h"
 #include "SDL3/SDL_gamepad.h"
 #include "SDL3/SDL_scancode.h"
 #include <Lenerith/Core/Engine.h>
 
-Lenerith::Engine::Engine() : window("lol", Config{}), renderer(window) {
+Lenerith::Engine::Engine(const Config &config)
+    : window("lol", config), renderer(window) {
   if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMEPAD)) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Init Error", SDL_GetError(),
                              nullptr);
@@ -26,6 +28,9 @@ void Lenerith::Engine::pollEvents() {
       if (event.key.scancode == SDL_SCANCODE_ESCAPE) {
         eventQueue.push({.type = EventType::QUIT});
       }
+      if (event.key.scancode == SDL_SCANCODE_F11) {
+        window.toggleFullScreen();
+      }
       break;
     case SDL_EVENT_GAMEPAD_BUTTON_DOWN:
       SDL_Log("%d", event.gbutton.button);
@@ -46,3 +51,4 @@ void Lenerith::Engine::pollEvents() {
 }
 
 Renderer *Lenerith::Engine::getRenderer() { return &renderer; }
+Window *Lenerith::Engine::getWindow() { return &window; }

@@ -22,7 +22,6 @@ void Lenerith::Game::run() {
   isRunning = true;
   isPaused = false;
   Renderer *renderer = engine.getRenderer();
-
   SDL_FRect rectagle{.x = 100, .y = 100, .w = 100, .h = 100};
 
   while (isRunning) {

@@ -6,7 +6,8 @@ using Lenerith::Game;
 
 int main() {
   Config config;
-  Engine engine;
+  config.loadConfig();
+  Engine engine(config);
   Game game(engine);
   game.run();
 }

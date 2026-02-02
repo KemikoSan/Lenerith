@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Lenerith/Core/Config.h>
 #include <Lenerith/Core/Event.h>
 #include <Lenerith/Core/Renderer.h>
 #include <Lenerith/Core/Window.h>
@@ -16,9 +17,10 @@ private:
   SDL_Gamepad *gamepads;
 
 public:
-  Engine();
+  Engine(const Config &config);
   ~Engine();
   Renderer *getRenderer();
+  Window *getWindow();
   void pollEvents();
   std::queue<Event> eventQueue;
 };

@@ -7,20 +7,37 @@ Lenerith::Window::Window(const std::string &WindowTitle, const Config &config)
       isFullScreen(config.fullscreen),
       SDLwindow(SDL_CreateWindow(WindowTitle.c_str(), config.screenWidth,
                                  config.screenHeight, SDL_WINDOW_RESIZABLE)) {
-  toggleFullScreen(isFullScreen);
-  toggleBorderless(isBorderless);
-}
 
-Lenerith::Window::~Window() { SDL_DestroyWindow(SDLwindow); }
+  SDL_DisplayID *displayIDs = SDL_GetDisplays(&displaysCount);
+  displays = new Display[displaysCount];
+  for (int i = 0; i < displaysCount; i++) {
+    displays[i].name = SDL_GetDisplayName(displayIDs[i]);
+    displays[i].display_modes =
+        SDL_GetFullscreenDisplayModes(displayIDs[i], &displays[i].modesCount);
+  }
+  SDL_free(displayIDs);
 
-void Lenerith::Window::toggleFullScreen(bool isFullscreen) {
   SDL_SetWindowFullscreen(SDLwindow, isFullScreen);
-  displayModes = SDL_GetDisplays(&displaysCount);
+  SDL_SetWindowBordered(SDLwindow, isBorderless);
 }
 
-void Lenerith::Window::toggleBorderless(bool isBorderless) {
+Lenerith::Window::~Window() {
+  SDL_DestroyWindow(SDLwindow);
+  for (int i = 0; i < displaysCount; i++) {
+    SDL_free(displays[i].display_modes);
+  }
+  delete[] displays;
+}
+
+void Lenerith::Window::toggleFullScreen() {
+  isFullScreen = !isFullScreen;
+  SDL_SetWindowFullscreenMode(SDLwindow, displays[0].display_modes[23]);
+  SDL_SetWindowFullscreen(SDLwindow, isFullScreen);
+}
+
+void Lenerith::Window::toggleBorderless() {
+  isBorderless = !isBorderless;
   SDL_SetWindowBordered(SDLwindow, isBorderless);
-  // isBorderless = isBorderless;
 }
 
 SDL_Window *Lenerith::Window::getSDLWindow() const { return SDLwindow; }
@@ -29,6 +46,4 @@ void Lenerith::Window::resize(Uint32 width, Uint32 height) {
   ScreenWidth = width;
   ScreenHeight = height;
   SDL_SetWindowSize(SDLwindow, width, height);
-
-  // SDL_SetWindowFullscreenMode(SDL_Window,  SDL_DisplayMode*});
 }
