@@ -4,15 +4,15 @@
 #include "SDL3/SDL_scancode.h"
 #include <Lenerith/Core/Engine.h>
 
-Lenerith::Engine::Engine(const Config &config)
-    : window("lol", config), renderer(window) {
+Lenerith::Engine::Engine(const Config &config) : window("lol", config), renderer(window) {
   if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMEPAD)) {
-    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Init Error", SDL_GetError(),
-                             nullptr);
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Init Error", SDL_GetError(), nullptr);
   }
 }
 
-Lenerith::Engine::~Engine() { SDL_Quit(); }
+Lenerith::Engine::~Engine() {
+  SDL_Quit();
+}
 
 void Lenerith::Engine::pollEvents() {
   SDL_Event event;
@@ -23,13 +23,13 @@ void Lenerith::Engine::pollEvents() {
       break;
     case SDL_EVENT_KEY_DOWN:
       if (event.key.scancode == SDL_SCANCODE_P) {
-        eventQueue.push({.type = EventType::PAUSE});
+        eventQueue.push({.type = EventType::PAUSE}); // DEBUG
       }
       if (event.key.scancode == SDL_SCANCODE_ESCAPE) {
-        eventQueue.push({.type = EventType::QUIT});
+        eventQueue.push({.type = EventType::QUIT}); // DEBUG
       }
       if (event.key.scancode == SDL_SCANCODE_F11) {
-        window.toggleFullScreen();
+        window.toggleFullScreen(); // DEBUG
       }
       break;
     case SDL_EVENT_GAMEPAD_BUTTON_DOWN:
@@ -50,5 +50,9 @@ void Lenerith::Engine::pollEvents() {
   }
 }
 
-Renderer *Lenerith::Engine::getRenderer() { return &renderer; }
-Window *Lenerith::Engine::getWindow() { return &window; }
+Renderer *Lenerith::Engine::getRenderer() {
+  return &renderer;
+}
+Window *Lenerith::Engine::getWindow() {
+  return &window;
+}

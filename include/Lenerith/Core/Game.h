@@ -1,8 +1,8 @@
 #pragma once
 
 #include <Lenerith/Core/Engine.h>
-#include <Lenerith/Entity.h>
-#include <memory>
+#include <Lenerith/Entity/Entity.h>
+#include <Lenerith/Scene.h>
 #include <vector>
 
 using Lenerith::Engine;
@@ -13,8 +13,8 @@ private:
   Engine &engine;
   bool isRunning = false;
   bool isPaused = false;
-  std::vector<std::unique_ptr<Entity>>
-      entities; // entities to update and render
+  int currentScene = 0;
+  std::vector<Scene> scenes;
 
 public:
   Game(Engine &engine);
@@ -23,5 +23,6 @@ public:
   void quit();
   float getDeltaTime();
   void handleEvents();
+  // void nextScene();
 };
 }; // namespace Lenerith

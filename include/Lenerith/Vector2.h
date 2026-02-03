@@ -12,6 +12,7 @@ public:
   Vector2 operator/(const Vector2 &vector);
   Vector2 operator/(float scalar);
   bool operator==(const Vector2 &vector) const;
+  Vector2 &operator=(const Vector2 &vector);
 
   float Lenght() const;
   float Distance(const Vector2 &vector);

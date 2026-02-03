@@ -7,3 +7,9 @@ enum class EventType {
 struct Event {
   EventType type;
 };
+
+struct InputEvent : Event {
+  EventType type;
+  int KB_button;
+  float axis;
+};

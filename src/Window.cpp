@@ -3,17 +3,14 @@
 #include <SDL3/SDL_video.h>
 
 Lenerith::Window::Window(const std::string &WindowTitle, const Config &config)
-    : ScreenWidth(config.screenWidth), ScreenHeight(config.screenHeight),
-      isFullScreen(config.fullscreen),
-      SDLwindow(SDL_CreateWindow(WindowTitle.c_str(), config.screenWidth,
-                                 config.screenHeight, SDL_WINDOW_RESIZABLE)) {
+    : ScreenWidth(config.screenWidth), ScreenHeight(config.screenHeight), isFullScreen(config.fullscreen),
+      SDLwindow(SDL_CreateWindow(WindowTitle.c_str(), config.screenWidth, config.screenHeight, SDL_WINDOW_RESIZABLE)) {
 
   SDL_DisplayID *displayIDs = SDL_GetDisplays(&displaysCount);
   displays = new Display[displaysCount];
   for (int i = 0; i < displaysCount; i++) {
     displays[i].name = SDL_GetDisplayName(displayIDs[i]);
-    displays[i].display_modes =
-        SDL_GetFullscreenDisplayModes(displayIDs[i], &displays[i].modesCount);
+    displays[i].display_modes = SDL_GetFullscreenDisplayModes(displayIDs[i], &displays[i].modesCount);
   }
   SDL_free(displayIDs);
 
@@ -31,7 +28,7 @@ Lenerith::Window::~Window() {
 
 void Lenerith::Window::toggleFullScreen() {
   isFullScreen = !isFullScreen;
-  SDL_SetWindowFullscreenMode(SDLwindow, displays[0].display_modes[23]);
+  SDL_SetWindowFullscreenMode(SDLwindow, displays[currentMonitor].display_modes[currentDisplayMode]);
   SDL_SetWindowFullscreen(SDLwindow, isFullScreen);
 }
 
@@ -40,7 +37,9 @@ void Lenerith::Window::toggleBorderless() {
   SDL_SetWindowBordered(SDLwindow, isBorderless);
 }
 
-SDL_Window *Lenerith::Window::getSDLWindow() const { return SDLwindow; }
+SDL_Window *Lenerith::Window::getSDLWindow() const {
+  return SDLwindow;
+}
 
 void Lenerith::Window::resize(Uint32 width, Uint32 height) {
   ScreenWidth = width;

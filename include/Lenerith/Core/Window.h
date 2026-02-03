@@ -18,6 +18,8 @@ private:
   Uint32 ScreenHeight;
   bool isFullScreen;
   bool isBorderless;
+  int currentMonitor = 0;
+  int currentDisplayMode = 0;
 
 public:
   Window(const std::string &windowTitle, const Config &config);
