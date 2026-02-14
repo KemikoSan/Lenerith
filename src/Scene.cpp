@@ -12,8 +12,6 @@ Lenerith::Scene::Scene(SDL_Renderer *render, const std::filesystem::path &path) 
   // DEBUG ONLY
   backgrounds.emplace_back(IMG_LoadTexture(renderer, "background.jpg"));
   entities.emplace_back(std::make_unique<Lenerith::Object>(Vector2(200.f, 200.f), IMG_LoadTexture(renderer, "main.png")));
-  entities.emplace_back(std::make_unique<Lenerith::Object>(Vector2(200.f, 500.f), IMG_LoadTexture(renderer, "main.png")));
-  SDL_Log("%s", "Obiekty Załadowane");
   // DEBUG ONLY
 }
 

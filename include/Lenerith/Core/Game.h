@@ -5,8 +5,6 @@
 #include <Lenerith/Scene.h>
 #include <vector>
 
-using Lenerith::Engine;
-
 namespace Lenerith {
 class Game {
 private:

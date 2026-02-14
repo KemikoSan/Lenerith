@@ -1,8 +1,8 @@
 #include "Lenerith/Core/Window.h"
 #include "SDL3/SDL_events.h"
 #include "SDL3/SDL_gamepad.h"
-#include "SDL3/SDL_scancode.h"
 #include <Lenerith/Core/Engine.h>
+#include <Lenerith/Input/Input.h>
 
 Lenerith::Engine::Engine(const Config &config) : window("lol", config), renderer(window) {
   if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMEPAD)) {
@@ -16,33 +16,42 @@ Lenerith::Engine::~Engine() {
 
 void Lenerith::Engine::pollEvents() {
   SDL_Event event;
+  Lenerith::Input &input = Input::instance();
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
     case SDL_EVENT_QUIT:
       eventQueue.push({.type = EventType::QUIT});
       break;
     case SDL_EVENT_KEY_DOWN:
-      if (event.key.scancode == SDL_SCANCODE_P) {
-        eventQueue.push({.type = EventType::PAUSE}); // DEBUG
-      }
-      if (event.key.scancode == SDL_SCANCODE_ESCAPE) {
-        eventQueue.push({.type = EventType::QUIT}); // DEBUG
-      }
-      if (event.key.scancode == SDL_SCANCODE_F11) {
-        window.toggleFullScreen(); // DEBUG
-      }
+      input.setKey(event.key.scancode, true);
+      break;
+    case SDL_EVENT_KEY_UP:
+      input.setKey(event.key.scancode, false);
       break;
     case SDL_EVENT_GAMEPAD_BUTTON_DOWN:
-      SDL_Log("%d", event.gbutton.button);
+      input.instance().setButton(event.gdevice.which, event.gbutton.button, true);
+      break;
+    case SDL_EVENT_GAMEPAD_BUTTON_UP:
+      input.setButton(event.gdevice.which, event.gbutton.button, false);
       break;
     case SDL_EVENT_GAMEPAD_AXIS_MOTION:
-      SDL_Log("%f", event.gaxis.value / 32767.0f);
+      input.setAxis(event.gdevice.which, event.gaxis.axis, event.gaxis.value / 36700.f);
       break;
-    case SDL_EVENT_GAMEPAD_ADDED:
-      gamepads = SDL_OpenGamepad(event.gdevice.which);
-      SDL_Log("%s", SDL_GetGamepadName(gamepads));
+    case SDL_EVENT_GAMEPAD_ADDED: {
+      SDL_Log("%d", event.gdevice.which);
+      SDL_Gamepad *gamepad = SDL_OpenGamepad(event.gdevice.which);
+      GamepadState state{};
+      state.handle = gamepad;
+      state.type = SDL_GetGamepadType(gamepad);
+      input.gamepads.insert(std::make_pair(event.gdevice.which, gamepad));
+      input.gamepadsNum.push_back(event.gdevice.which);
       break;
+    }
     case SDL_EVENT_GAMEPAD_REMOVED:
+      SDL_CloseGamepad(SDL_GetGamepadFromID(event.gdevice.which));
+      input.gamepads.erase(event.gdevice.which);
+      input.gamepadsNum.erase(std::find(input.gamepadsNum.begin(), input.gamepadsNum.end(), event.gdevice.which));
+      eventQueue.push({.type = EventType::GAMEPAD_REMOVED});
       break;
     default:
       break;
@@ -53,6 +62,7 @@ void Lenerith::Engine::pollEvents() {
 Renderer *Lenerith::Engine::getRenderer() {
   return &renderer;
 }
+
 Window *Lenerith::Engine::getWindow() {
   return &window;
 }

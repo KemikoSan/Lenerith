@@ -1,9 +1,8 @@
 #include "Lenerith/Core/Engine.h"
-#include "SDL3/SDL_log.h"
-#include "SDL3/SDL_rect.h"
 #include "SDL3/SDL_stdinc.h"
 #include "SDL3/SDL_timer.h"
 #include <Lenerith/Core/Game.h>
+#include <Lenerith/Input/Input.h>
 
 float Lenerith::Game::getDeltaTime() {
   static Uint64 lastCounter = SDL_GetPerformanceCounter();
@@ -22,7 +21,6 @@ void Lenerith::Game::run() {
 
   Renderer *renderer = engine.getRenderer();
   scenes.emplace_back(renderer->SDLrenderer, "");
-  SDL_FRect rectagle{.x = 100, .y = 100, .w = 100, .h = 100};
 
   while (isRunning) {
     float deltatime = getDeltaTime();
@@ -39,6 +37,7 @@ void Lenerith::Game::run() {
   }
 }
 
+// every event that is not input
 void Lenerith::Game::handleEvents() {
   for (size_t i = 0; i < engine.eventQueue.size(); i++) {
     Event event = engine.eventQueue.front();
@@ -49,9 +48,12 @@ void Lenerith::Game::handleEvents() {
       break;
     case EventType::PAUSE:
       isPaused = !isPaused;
-      SDL_Log("%d", isPaused);
       break;
     case EventType::INPUT:
+      break;
+    case EventType::GAMEPAD_ADDED:
+      break;
+    case EventType::GAMEPAD_REMOVED:
       break;
     }
     engine.eventQueue.pop();

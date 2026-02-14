@@ -14,7 +14,6 @@ class Engine {
 private:
   Window window;
   Renderer renderer;
-  SDL_Gamepad *gamepads;
 
 public:
   Engine(const Config &config);

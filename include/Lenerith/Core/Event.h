@@ -2,14 +2,11 @@ enum class EventType {
   QUIT,
   PAUSE,
   INPUT,
+  GAMEPAD_REMOVED,
+  GAMEPAD_ADDED
 };
 
 struct Event {
   EventType type;
-};
-
-struct InputEvent : Event {
-  EventType type;
-  int KB_button;
-  float axis;
+  int keyboardKey;
 };
