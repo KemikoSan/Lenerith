@@ -16,3 +16,5 @@ public:
   void saveConfig(const Config &config);
 };
 }; // namespace Lenerith
+
+inline Lenerith::Config config;

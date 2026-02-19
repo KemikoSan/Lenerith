@@ -14,12 +14,18 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
     $<$<CONFIG:Release>:NDEBUG>
 )
 
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG   ${CMAKE_BINARY_DIR}/Debug
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/Release
+)
+
+
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
 target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_LIB})
 
 if(WIN32)
     target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_LIB}/windows)
-    target_link_libraries(${PROJECT_NAME} PRIVATE SDL3 SDL3_image winmm gdi32 opengl32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE SDL3 SDL3_image SDL3_mixer SDL3_ttf winmm gdi32 opengl32)
     target_link_options(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Debug>:-fuse-ld=lld>
         $<$<CONFIG:Release>:-O3 -fuse-ld=lld -Wl,/SUBSYSTEM:WINDOWS -Wl,/ENTRY:mainCRTStartup>

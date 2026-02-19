@@ -2,7 +2,7 @@
 #include <Lenerith/Core/Window.h>
 #include <SDL3/SDL_video.h>
 
-Lenerith::Window::Window(const std::string &WindowTitle, const Config &config)
+Lenerith::Window::Window(const std::string &WindowTitle)
     : ScreenWidth(config.screenWidth), ScreenHeight(config.screenHeight), isFullScreen(config.fullscreen),
       SDLwindow(SDL_CreateWindow(WindowTitle.c_str(), config.screenWidth, config.screenHeight, SDL_WINDOW_RESIZABLE)) {
 

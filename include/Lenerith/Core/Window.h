@@ -22,7 +22,7 @@ private:
   int currentDisplayMode = 0;
 
 public:
-  Window(const std::string &windowTitle, const Config &config);
+  Window(const std::string &windowTitle);
   ~Window();
   void toggleFullScreen();
   void toggleBorderless();

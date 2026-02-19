@@ -10,8 +10,7 @@
 
 Lenerith::Scene::Scene(SDL_Renderer *render, const std::filesystem::path &path) : renderer(render), path(path) {
   // DEBUG ONLY
-  backgrounds.emplace_back(IMG_LoadTexture(renderer, "background.jpg"));
-  entities.emplace_back(std::make_unique<Lenerith::Object>(Vector2(200.f, 200.f), IMG_LoadTexture(renderer, "main.png")));
+  backgrounds.emplace_back(IMG_LoadTexture(renderer, "background.png"));
   // DEBUG ONLY
 }
 

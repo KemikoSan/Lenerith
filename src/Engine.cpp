@@ -4,7 +4,7 @@
 #include <Lenerith/Core/Engine.h>
 #include <Lenerith/Input/Input.h>
 
-Lenerith::Engine::Engine(const Config &config) : window("lol", config), renderer(window) {
+Lenerith::Engine::Engine() : window("lol"), renderer(window) {
   if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMEPAD)) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Init Error", SDL_GetError(), nullptr);
   }

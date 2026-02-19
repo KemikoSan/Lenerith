@@ -16,7 +16,7 @@ private:
   Renderer renderer;
 
 public:
-  Engine(const Config &config);
+  Engine();
   ~Engine();
   Renderer *getRenderer();
   Window *getWindow();
