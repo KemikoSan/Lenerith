@@ -15,10 +15,12 @@ public:
   std::vector<SDL_JoystickID> gamepadsNum;
   bool isKeyDown(Keyboard key) const;
   void setKey(int key, bool down);
+  bool isButtonPressed(SDL_JoystickID id, Gamepad button) const;
   bool isButtonDown(SDL_JoystickID id, Gamepad button) const;
   void setButton(SDL_JoystickID id, int btn, bool down);
   float getAxis(SDL_JoystickID id, Gamepad axis) const;
   void setAxis(SDL_JoystickID id, int axis, float value);
+  void update();
 
   Input &operator=(const Input &) = delete;
   Input operator=(const Input) = delete;

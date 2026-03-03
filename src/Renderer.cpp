@@ -1,8 +1,9 @@
+#include "Lenerith/Core/Config.h"
 #include "SDL3/SDL_render.h"
 #include <Lenerith/Core/Renderer.h>
 
 Lenerith::Renderer::Renderer(const Lenerith::Window &window) : SDLrenderer(SDL_CreateRenderer(window.getSDLWindow(), nullptr)) {
-  SDL_SetRenderVSync(SDLrenderer, 1);
+  SDL_SetRenderVSync(SDLrenderer, config.vsync);
 }
 
 Lenerith::Renderer::~Renderer() {

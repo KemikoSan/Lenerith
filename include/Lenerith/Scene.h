@@ -12,12 +12,12 @@ private:
   std::filesystem::path path;
   std::vector<SDL_Texture *> backgrounds;                  // layers of background
   std::vector<std::unique_ptr<Lenerith::Entity>> entities; // entities to update and render
-  std::vector<Lenerith::Player> players;
+  // std::vector<Lenerith::Player> players;
 
 public:
   Scene(SDL_Renderer *render, const std::filesystem::path &path);
   void update(float deltatime);
-  void render();
+  void render(Camera *camera);
   void load();
 };
 }; // namespace Lenerith

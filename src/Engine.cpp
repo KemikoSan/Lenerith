@@ -1,6 +1,8 @@
+#include "Lenerith/Core/Config.h"
 #include "Lenerith/Core/Window.h"
 #include "SDL3/SDL_events.h"
 #include "SDL3/SDL_gamepad.h"
+#include "SDL3/SDL_video.h"
 #include <Lenerith/Core/Engine.h>
 #include <Lenerith/Input/Input.h>
 
@@ -38,7 +40,6 @@ void Lenerith::Engine::pollEvents() {
       input.setAxis(event.gdevice.which, event.gaxis.axis, event.gaxis.value / 36700.f);
       break;
     case SDL_EVENT_GAMEPAD_ADDED: {
-      SDL_Log("%d", event.gdevice.which);
       SDL_Gamepad *gamepad = SDL_OpenGamepad(event.gdevice.which);
       GamepadState state{};
       state.handle = gamepad;
@@ -55,6 +56,8 @@ void Lenerith::Engine::pollEvents() {
       break;
     default:
       break;
+    case SDL_EVENT_WINDOW_RESIZED:
+      SDL_GetWindowSize(window.getSDLWindow(), (int *)&config.screenWidth, (int *)&config.screenHeight);
     }
   }
 }

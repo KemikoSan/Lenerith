@@ -1,3 +1,5 @@
+#include "Lenerith/Entity/Entity.h"
+#include "Lenerith/Entity/Player.h"
 #include "Lenerith/Vector2.h"
 #include "SDL3/SDL_rect.h"
 #include "SDL3/SDL_render.h"
@@ -10,7 +12,10 @@
 
 Lenerith::Scene::Scene(SDL_Renderer *render, const std::filesystem::path &path) : renderer(render), path(path) {
   // DEBUG ONLY
-  backgrounds.emplace_back(IMG_LoadTexture(renderer, "background.png"));
+  backgrounds.emplace_back(IMG_LoadTexture(renderer, "paralax/first.png"));
+  backgrounds.emplace_back(IMG_LoadTexture(renderer, "paralax/second.png"));
+  backgrounds.emplace_back(IMG_LoadTexture(renderer, "paralax/third.png"));
+  entities.emplace_back(std::make_unique<Lenerith::Object>(Vector2(200.f, 200.f), IMG_LoadTexture(renderer, "main.png")));
   // DEBUG ONLY
 }
 
@@ -20,15 +25,19 @@ void Lenerith::Scene::update(float deltatime) {
   }
 }
 
-void Lenerith::Scene::render() {
+void Lenerith::Scene::render(Camera *camera) {
+  float paralax = 0.33f;
   for (auto &background : backgrounds) {
-    SDL_RenderTexture(renderer, background, nullptr, nullptr); // Need background FRect or Not???
+    SDL_FRect rect{-camera->viewport.x * paralax, -camera->viewport.y * paralax, static_cast<float>(background->w), static_cast<float>(background->h)};
+    SDL_RenderTexture(renderer, background, nullptr, &rect);
+    paralax += 0.33f;
   }
+  paralax = 0;
 
   for (auto &entity : entities) {
     SDL_Texture *texture = entity->getTexture();
     Vector2 position = entity->getPosition();
-    SDL_FRect rect{position.x, position.y, (float)texture->w, (float)texture->h};
+    SDL_FRect rect{position.x - camera->viewport.x, position.y - camera->viewport.y, (float)texture->w, (float)texture->h};
     SDL_RenderTexture(renderer, texture, nullptr, &rect);
   }
 }
