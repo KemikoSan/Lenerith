@@ -4,7 +4,6 @@
 #include <Lenerith/Core/Event.h>
 #include <Lenerith/Core/Renderer.h>
 #include <Lenerith/Core/Window.h>
-#include <queue>
 
 using Lenerith::Renderer;
 using Lenerith::Window;
@@ -21,6 +20,5 @@ public:
   Renderer *getRenderer();
   Window *getWindow();
   void pollEvents();
-  std::queue<Event> eventQueue;
 };
 }; // namespace Lenerith

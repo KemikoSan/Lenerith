@@ -6,8 +6,37 @@ set(CMAKE_CXX_STANDARD 23)
 set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/include")
 set(PROJECT_LIB "${CMAKE_CURRENT_LIST_DIR}/lib")
 
-file(GLOB SRC_FILES src/*.cpp)
-add_executable(${PROJECT_NAME} ${SRC_FILES})
+add_executable(${PROJECT_NAME}
+# debug only
+src/main.cpp
+# Core
+src/Core/Engine.cpp
+src/Core/Renderer.cpp
+src/Core/Window.cpp
+src/Core/Config.cpp
+src/Core/Audio.cpp
+src/Core/Time.cpp
+src/Core/Game.cpp
+# Math
+src/Math/Vector2.cpp
+# Input
+src/Input/Input.cpp
+# Entity
+src/Entity/Entity.cpp
+src/Entity/Player.cpp
+src/Entity/Object.cpp
+# Scene
+src/Scene/Scene.cpp
+src/Scene/SceneManager.cpp
+# UI
+src/UI/UI.cpp
+src/UI/Button.cpp
+# Rest
+src/Animation.cpp
+src/Timer.cpp
+src/Camera.cpp
+src/TriggerBox.cpp
+)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     $<$<CONFIG:Debug>:DEBUG>
@@ -19,16 +48,15 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/Release
 )
 
-
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
 target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_LIB})
 
 if(WIN32)
     target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_LIB}/windows)
-    target_link_libraries(${PROJECT_NAME} PRIVATE SDL3 SDL3_image SDL3_mixer SDL3_ttf winmm gdi32 opengl32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE SDL3 SDL3_image SDL3_mixer SDL3_ttf)
     target_link_options(${PROJECT_NAME} PRIVATE
-        $<$<CONFIG:Debug>:-fuse-ld=lld>
-        $<$<CONFIG:Release>:-O3 -fuse-ld=lld -Wl,/SUBSYSTEM:WINDOWS -Wl,/ENTRY:mainCRTStartup>
+        $<$<CONFIG:Debug>:-fuse-ld=lld -Wall -Wextra>
+        $<$<CONFIG:Release>:-O3 -fuse-ld=lld -Wall -Wextra -Wl,/SUBSYSTEM:WINDOWS -Wl,/ENTRY:mainCRTStartup>
     )
 elseif(UNIX)
     target_link_directories(${PROJECT_NAME} PRIVATE ${PROJECT_LIB}/linux)

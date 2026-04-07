@@ -31,7 +31,7 @@ void Lenerith::Engine::pollEvents() {
       input.setKey(event.key.scancode, false);
       break;
     case SDL_EVENT_GAMEPAD_BUTTON_DOWN:
-      input.instance().setButton(event.gdevice.which, event.gbutton.button, true);
+      input.setButton(event.gdevice.which, event.gbutton.button, true);
       break;
     case SDL_EVENT_GAMEPAD_BUTTON_UP:
       input.setButton(event.gdevice.which, event.gbutton.button, false);

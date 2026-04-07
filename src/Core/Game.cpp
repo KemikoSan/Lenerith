@@ -1,65 +1,77 @@
-#include "Lenerith/Core/Engine.h"
-#include "Lenerith/Entity/Player.h"
-#include "SDL3/SDL_render.h"
-#include "SDL3/SDL_stdinc.h"
-#include "SDL3/SDL_timer.h"
-#include "SDL3_image/SDL_image.h"
-#include <Lenerith/Animation.h>
-#include <Lenerith/Core/Game.h>
-#include <Lenerith/Input/Input.h>
-#include <Lenerith/UI/UI.h>
 #include <cstddef>
 #include <format>
 #include <string>
 
-float Lenerith::Game::getDeltaTime() {
-  static Uint64 lastCounter = SDL_GetPerformanceCounter();
-  Uint64 currentCounter = SDL_GetPerformanceCounter();
-  Uint64 frequency = SDL_GetPerformanceFrequency();
-  float deltaTime = (currentCounter - lastCounter) / static_cast<float>(frequency);
-  lastCounter = currentCounter;
-  return deltaTime;
+#include "Lenerith/Input/InputMap.h"
+#include "SDL3/SDL_log.h"
+#include "SDL3/SDL_render.h"
+#include "SDL3_image/SDL_image.h"
+
+#include "Lenerith/Core/Engine.h"
+#include "Lenerith/Entity/Player.h"
+#include <Lenerith/Animation.h>
+#include <Lenerith/Core/Game.h>
+#include <Lenerith/Core/Time.h>
+#include <Lenerith/Input/Input.h>
+#include <Lenerith/Scene/SceneManager.h>
+#include <Lenerith/UI/UI.h>
+
+void call() {
+  SDL_Log("Triggered");
 }
 
-Lenerith::Game::Game(Lenerith::Engine &engine) : engine(engine) {}
+Lenerith::Game::Game(Engine &engine) : engine(engine) {}
 
 void Lenerith::Game::run() {
   isRunning = true;
   isPaused = false;
   Renderer *renderer = engine.getRenderer();
+  Input &input = Input::instance();
+  Audio &audio = Audio::instance();
+  SceneManager sceneManager;
 
-  scenes.emplace_back(renderer->SDLrenderer, "");
+  // Loading assets -> need change ?
+  sceneManager.scenes.emplace_back(renderer->SDLrenderer, "assets/scenes/scene1.ubjson");
+  sceneManager.getCurrentScene()->load();
   SDL_Texture *walk = IMG_LoadTexture(renderer->SDLrenderer, "guncat.png");
   SDL_Texture *idle = IMG_LoadTexture(renderer->SDLrenderer, "idle.png");
 
-  Player player(walk, idle, {100, 300}, 0);
+  // Loading player and camera -> need change ?
+  Player player(walk, idle, {400, 300}, 0);
   Player player2(walk, idle, {400, 300}, 1);
   Camera camera;
-  Lenerith::Input &input = Input::instance();
 
   // MUSIC
-  Audio &audio = Audio::instance();
-  // const SDL_AudioSpec *specs = audio.getSpec();
   // SDL_IOStream *stream = SDL_IOFromFile("cyber.mp3", "r");
   // MIX_Audio *music = MIX_LoadAudio_IO(audio.getMixer(), stream, false, true);
   // audio.playMusic(music);
   // MUSIC
+  //
+
+  // Main Loop
   while (isRunning) {
-    float deltatime = getDeltaTime();
+    // Update subsystems
+    Time::update();
     input.update();
+    audio.clearTracks();
     engine.pollEvents();
     handleEvents();
-    audio.clearTracks();
 
+    // Update Stage
     if (!isPaused) {
-      scenes[currentScene].update(deltatime);
-      player.update(deltatime);
-      player2.update(deltatime);
-      camera.update(player.getPosiotion());
+      sceneManager.scenes[sceneManager.currentScene].update();
+      player.update();
+      player2.update();
+      camera.update(player.getPosition());
+
+      if (input.isKeyDown(Keyboard::ESCAPE)) {
+        sceneManager.getCurrentScene()->unload();
+      }
     }
 
+    // Render Stage
     renderer->renderClear();
-    scenes[currentScene].render(&camera);
+    sceneManager.scenes[sceneManager.currentScene].render(&camera);
     player.render(renderer->SDLrenderer, &camera);
     player2.render(renderer->SDLrenderer, &camera);
 
@@ -67,17 +79,18 @@ void Lenerith::Game::run() {
     SDL_SetRenderDrawColor(renderer->SDLrenderer, 255, 255, 255, 255);
     SDL_RenderDebugText(renderer->SDLrenderer, 10.f, 10.f, "Lenerith-Tech");
     SDL_RenderDebugText(renderer->SDLrenderer, 10.f, 20.f, SDL_GetRendererName(renderer->SDLrenderer));
-    SDL_RenderDebugText(renderer->SDLrenderer, 10.f, 30.f, std::format("FPS: {}", std::floor(1.f / deltatime)).c_str());
+    SDL_RenderDebugText(renderer->SDLrenderer, 10.f, 30.f, std::format("FPS: {}", std::floor(1.f / Time::unscaledDeltatime)).c_str());
     // DEBUG
 
     renderer->renderPresent();
+    // End Render Stage
   }
 }
 
-// every event that is not input
+// every event that is not input (Some of this should user set :o)
 void Lenerith::Game::handleEvents() {
-  for (size_t i = 0; i < engine.eventQueue.size(); i++) {
-    Event event = engine.eventQueue.front();
+  for (size_t i = 0; i < eventQueue.size(); i++) {
+    Event event = eventQueue.front();
     switch (event.type) {
     case EventType::QUIT:
       isRunning = false;
@@ -93,6 +106,6 @@ void Lenerith::Game::handleEvents() {
     case EventType::GAMEPAD_REMOVED:
       break;
     }
-    engine.eventQueue.pop();
+    eventQueue.pop();
   }
 }

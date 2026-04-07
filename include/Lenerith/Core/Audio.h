@@ -1,8 +1,9 @@
 #pragma once
 
+#include <vector>
+
 #include <SDL3/SDL_audio.h>
 #include <SDL3_mixer/SDL_mixer.h>
-#include <vector>
 
 namespace Lenerith {
 class Audio {

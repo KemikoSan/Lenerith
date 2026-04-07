@@ -1,5 +1,5 @@
 BasedOnStyle: LLVM
 IndentWidth: 2
-ColumnLimit: 200
+ColumnLimit: 150
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortEnumsOnASingleLine: false

@@ -1,11 +1,13 @@
 #pragma once
 
+#include <string>
+
 #include "SDL3/SDL_stdinc.h"
 #include "SDL3/SDL_video.h"
+#include <SDL3/SDL.h>
+
 #include <Lenerith/Core/Config.h>
 #include <Lenerith/Core/Display.h>
-#include <SDL3/SDL.h>
-#include <string>
 
 // Create SDL window
 namespace Lenerith {

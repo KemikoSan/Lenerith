@@ -3,29 +3,31 @@
 
 #include "Lenerith/Animation.h"
 #include "Lenerith/Input/InputMap.h"
-#include "Lenerith/Vector2.h"
+#include "Lenerith/Math/Vector2.h"
 #include <Lenerith/Core/Audio.h>
+#include <Lenerith/Core/Time.h>
 #include <Lenerith/Entity/Player.h>
 #include <Lenerith/Input/Input.h>
 
-Player::Player(SDL_Texture *walk, SDL_Texture *idle, const Vector2 &position, int gamepadId) : walk({walk, 450, 490, 12, 15}), idle({idle, 450, 490, 5, 10}), gamepadId(gamepadId), position(position) {
+Player::Player(SDL_Texture *walk, SDL_Texture *idle, const Vector2 &position, int gamepadId)
+    : walk({walk, 450, 490, 12, 15}), idle({idle, 450, 490, 5, 10}), gamepadId(gamepadId), position(position) {
   center = {225, 245};
   sound = MIX_LoadAudio(Lenerith::Audio::instance().getMixer(), "sound.wav", false);
   sound2 = MIX_LoadAudio(Lenerith::Audio::instance().getMixer(), "healthpcikup1.wav", false);
 }
 
-void Player::update(float deltatime) {
+void Player::update() {
   Lenerith::Input &input = Lenerith::Input::instance();
   if (input.getAxis(gamepadId, Gamepad::LEFT_AXIS_X) > 0.1f) {
     right = true;
     isWalking = true;
-    position.x += 250.f * deltatime;
+    position.x += 250.f * Lenerith::Time::deltatime;
   }
 
   if (input.getAxis(gamepadId, Gamepad::LEFT_AXIS_X) < -0.1f) {
     right = false;
     isWalking = true;
-    position.x -= 250.f * deltatime;
+    position.x -= 250.f * Lenerith::Time::deltatime;
   }
 
   if (input.getAxis(gamepadId, Gamepad::LEFT_AXIS_X) > -0.1f && input.getAxis(gamepadId, Gamepad::LEFT_AXIS_X) < 0.1f) {
@@ -42,11 +44,11 @@ void Player::update(float deltatime) {
 
   if (isWalking) {
     idle.Stop();
-    frame = walk.Play(deltatime);
+    frame = walk.Play(Lenerith::Time::deltatime);
   } else {
     walk.Stop();
     isWalking = false;
-    frame = idle.Play(deltatime);
+    frame = idle.Play(Lenerith::Time::deltatime);
   }
 }
 
@@ -66,6 +68,6 @@ void Player::render(SDL_Renderer *renderer, Camera *camera) {
   }
 }
 
-Vector2 Player::getPosiotion() const {
+Vector2 Player::getPosition() const {
   return position;
 }

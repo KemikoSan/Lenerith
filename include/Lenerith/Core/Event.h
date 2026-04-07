@@ -1,3 +1,5 @@
+#include <queue>
+
 enum class EventType {
   QUIT,
   PAUSE,
@@ -10,3 +12,5 @@ struct Event {
   EventType type;
   int keyboardKey;
 };
+
+inline std::queue<Event> eventQueue;

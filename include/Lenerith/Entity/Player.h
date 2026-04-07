@@ -1,13 +1,15 @@
 #pragma once
 
-// #include "Lenerith/Entity/Entity.h"
 #include "SDL3/SDL_rect.h"
 #include "SDL3/SDL_render.h"
 #include "SDL3_mixer/SDL_mixer.h"
+
 #include <Lenerith/Animation.h>
 #include <Lenerith/Camera.h>
 #include <Lenerith/Core/Audio.h>
-#include <Lenerith/Vector2.h>
+#include <Lenerith/Math/Vector2.h>
+// #include "Lenerith/Entity/Entity.h"
+
 // namespace Lenerith {
 // class Player : public Lenerith::Entity {
 // public:
@@ -30,9 +32,9 @@ private:
   MIX_Audio *sound2;
 
 public:
-  void update(float deltatime);
+  void update();
   void render(SDL_Renderer *renderer, Camera *camera);
   SDL_FRect frame;
   Player(SDL_Texture *idle, SDL_Texture *walk, const Vector2 &position, int gamepadId);
-  Vector2 getPosiotion() const;
+  Vector2 getPosition() const;
 };
