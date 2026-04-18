@@ -1,6 +1,13 @@
+#define LENERITH_EXPORT
+
 #include <Lenerith/Core/Config.h>
 #include <Nlohmann/json.hpp>
 #include <fstream>
+
+Lenerith::Config &Lenerith::Config::instance() {
+  static Config instance;
+  return instance;
+}
 
 void Lenerith::Config::loadConfig() {
   std::ifstream file("config.json");

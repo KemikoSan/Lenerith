@@ -1,3 +1,5 @@
+#define LENERITH_EXPORT
+
 #include <Lenerith/Scene/SceneManager.h>
 
 Lenerith::Scene *Lenerith::SceneManager::getCurrentScene() {

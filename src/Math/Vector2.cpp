@@ -1,3 +1,5 @@
+#define LENERITH_EXPORT
+
 #include <Lenerith/Math/Vector2.h>
 #include <cmath>
 

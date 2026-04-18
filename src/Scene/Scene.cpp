@@ -1,3 +1,5 @@
+#define LENERITH_EXPORT
+
 #include <filesystem>
 #include <fstream>
 #include <memory>

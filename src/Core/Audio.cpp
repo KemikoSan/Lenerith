@@ -1,3 +1,5 @@
+#define LENERITH_EXPORT
+
 #include "SDL3_mixer/SDL_mixer.h"
 #include <Lenerith/Core/Audio.h>
 #include <Lenerith/Core/Config.h>
@@ -7,7 +9,7 @@ Lenerith::Audio::Audio() {
   MIX_Init();
   audioDevice = SDL_OpenAudioDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, nullptr);
   mixer = MIX_CreateMixerDevice(audioDevice, nullptr);
-  MIX_SetMixerGain(mixer, config.masterVolume);
+  MIX_SetMixerGain(mixer, Config::instance().masterVolume);
   musicTrack = MIX_CreateTrack(mixer);
 }
 
@@ -25,7 +27,7 @@ Lenerith::Audio::~Audio() {
 void Lenerith::Audio::playSound(MIX_Audio *sound) {
   MIX_Track *track = MIX_CreateTrack(mixer);
   audioTracks.emplace_back(track);
-  MIX_SetTrackGain(track, config.soundVolume);
+  MIX_SetTrackGain(track, Config::instance().masterVolume);
   MIX_SetTrackAudio(track, sound);
   MIX_PlayTrack(track, 0);
 }

@@ -1,7 +1,9 @@
 #pragma once
 
+#include <Lenerith/export.h>
+
 namespace Lenerith {
-class Time {
+class LENERITH_API Time {
 public:
   static float deltatime;
   static float unscaledDeltatime;

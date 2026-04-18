@@ -7,9 +7,10 @@
 #include <Lenerith/Entity/Entity.h>
 #include <Lenerith/Entity/Player.h>
 #include <Lenerith/Scene/Background.h>
+#include <Lenerith/export.h>
 
 namespace Lenerith {
-class Scene {
+class LENERITH_API Scene {
 private:
   SDL_Renderer *renderer;
   std::filesystem::path path;
@@ -23,5 +24,9 @@ public:
   void render(Camera *camera);
   void load();
   void unload();
+  Scene(const Scene &) = delete;
+  Scene &operator=(const Scene &) = delete;
+  Scene(Scene &&) = default;
+  Scene &operator=(Scene &&) = default;
 };
 }; // namespace Lenerith

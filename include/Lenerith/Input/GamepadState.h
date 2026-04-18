@@ -6,8 +6,6 @@
 struct GamepadState {
   SDL_Gamepad *handle = nullptr;
   SDL_GamepadType type;
-  // bool buttons[32] = {};
-  // bool prevButtons[32] = {};
   std::array<bool, 32> buttons;
   std::array<bool, 32> prevButtons;
   float axes[8] = {};

@@ -1,3 +1,5 @@
+#define LENERITH_EXPORT
+
 #include <Lenerith/Entity/Object.h>
 #include <Lenerith/Input/Input.h>
 #include <Lenerith/Math/Vector2.h>

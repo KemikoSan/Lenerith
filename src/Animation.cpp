@@ -1,3 +1,5 @@
+#define LENERITH_EXPORT
+
 #include "SDL3/SDL_render.h"
 #include <Lenerith/Animation.h>
 

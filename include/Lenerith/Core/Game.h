@@ -2,9 +2,10 @@
 
 #include <Lenerith/Core/Engine.h>
 #include <Lenerith/Entity/Entity.h>
+#include <Lenerith/export.h>
 
 namespace Lenerith {
-class Game {
+class LENERITH_API Game {
 private:
   Engine &engine;
   bool isRunning = false;

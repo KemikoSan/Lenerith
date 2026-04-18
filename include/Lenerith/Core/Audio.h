@@ -5,8 +5,10 @@
 #include <SDL3/SDL_audio.h>
 #include <SDL3_mixer/SDL_mixer.h>
 
+#include <Lenerith/export.h>
+
 namespace Lenerith {
-class Audio {
+class LENERITH_API Audio {
 private:
   SDL_AudioDeviceID audioDevice;
   SDL_AudioSpec spec;

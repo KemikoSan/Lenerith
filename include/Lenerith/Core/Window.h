@@ -8,10 +8,11 @@
 
 #include <Lenerith/Core/Config.h>
 #include <Lenerith/Core/Display.h>
+#include <Lenerith/export.h>
 
 // Create SDL window
 namespace Lenerith {
-class Window {
+class LENERITH_API Window {
 private:
   SDL_Window *SDLwindow;
   Display *displays;

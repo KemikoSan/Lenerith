@@ -2,9 +2,10 @@
 
 #include <functional>
 
+#include "SDL3/SDL_rect.h"
+
 #include "Lenerith/Entity/Player.h"
 #include "Lenerith/Math/Vector2.h"
-#include "SDL3/SDL_rect.h"
 
 namespace Lenerith {
 class TriggerBox {

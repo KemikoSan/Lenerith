@@ -1,13 +1,13 @@
 #pragma once
 
+#include <Lenerith/export.h>
 #include <chrono>
 #include <functional>
-#include <thread>
 
 using namespace std::chrono_literals;
 
 namespace Lenerith {
-class Timer {
+class LENERITH_API Timer {
 private:
 public:
   Timer(std::chrono::seconds duration, const std::function<void()> &callback);

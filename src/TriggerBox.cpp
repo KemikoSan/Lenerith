@@ -1,3 +1,4 @@
+#define LENERITH_EXPORT
 
 #include "Lenerith/Entity/Player.h"
 #include "Lenerith/Math/Vector2.h"

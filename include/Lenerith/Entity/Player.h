@@ -8,6 +8,7 @@
 #include <Lenerith/Camera.h>
 #include <Lenerith/Core/Audio.h>
 #include <Lenerith/Math/Vector2.h>
+#include <Lenerith/export.h>
 // #include "Lenerith/Entity/Entity.h"
 
 // namespace Lenerith {
@@ -19,7 +20,7 @@
 // };
 // }; // namespace Lenerith
 
-class Player {
+class LENERITH_API Player {
 private:
   Animation idle;
   Animation walk;
@@ -33,7 +34,7 @@ private:
 
 public:
   void update();
-  void render(SDL_Renderer *renderer, Camera *camera);
+  void render(SDL_Renderer *renderer, Lenerith::Camera *camera);
   SDL_FRect frame;
   Player(SDL_Texture *idle, SDL_Texture *walk, const Vector2 &position, int gamepadId);
   Vector2 getPosition() const;

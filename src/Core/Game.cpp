@@ -1,9 +1,9 @@
+#define LENERITH_EXPORT
+
 #include <cstddef>
 #include <format>
 #include <string>
 
-#include "Lenerith/Input/InputMap.h"
-#include "SDL3/SDL_log.h"
 #include "SDL3/SDL_render.h"
 #include "SDL3_image/SDL_image.h"
 
@@ -15,10 +15,6 @@
 #include <Lenerith/Input/Input.h>
 #include <Lenerith/Scene/SceneManager.h>
 #include <Lenerith/UI/UI.h>
-
-void call() {
-  SDL_Log("Triggered");
-}
 
 Lenerith::Game::Game(Engine &engine) : engine(engine) {}
 
@@ -63,10 +59,6 @@ void Lenerith::Game::run() {
       player.update();
       player2.update();
       camera.update(player.getPosition());
-
-      if (input.isKeyDown(Keyboard::ESCAPE)) {
-        sceneManager.getCurrentScene()->unload();
-      }
     }
 
     // Render Stage

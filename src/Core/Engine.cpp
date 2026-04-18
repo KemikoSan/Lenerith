@@ -1,8 +1,11 @@
-#include "Lenerith/Core/Config.h"
-#include "Lenerith/Core/Window.h"
+#define LENERITH_EXPORT
+
 #include "SDL3/SDL_events.h"
 #include "SDL3/SDL_gamepad.h"
 #include "SDL3/SDL_video.h"
+
+#include "Lenerith/Core/Config.h"
+#include "Lenerith/Core/Window.h"
 #include <Lenerith/Core/Engine.h>
 #include <Lenerith/Input/Input.h>
 
@@ -57,15 +60,15 @@ void Lenerith::Engine::pollEvents() {
     default:
       break;
     case SDL_EVENT_WINDOW_RESIZED:
-      SDL_GetWindowSize(window.getSDLWindow(), (int *)&config.screenWidth, (int *)&config.screenHeight);
+      SDL_GetWindowSize(window.getSDLWindow(), (int *)&Config::instance().screenWidth, (int *)&Config::instance().screenHeight);
     }
   }
 }
 
-Renderer *Lenerith::Engine::getRenderer() {
+Lenerith::Renderer *Lenerith::Engine::getRenderer() {
   return &renderer;
 }
 
-Window *Lenerith::Engine::getWindow() {
+Lenerith::Window *Lenerith::Engine::getWindow() {
   return &window;
 }

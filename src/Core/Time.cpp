@@ -1,3 +1,5 @@
+#define LENERITH_EXPORT
+
 #include "SDL3/SDL_timer.h"
 #include <Lenerith/Core/Time.h>
 

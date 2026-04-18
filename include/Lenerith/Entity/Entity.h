@@ -4,9 +4,10 @@
 #include "SDL3/SDL_render.h"
 
 #include "Lenerith/Math/Vector2.h"
+#include <Lenerith/export.h>
 
 namespace Lenerith {
-class Entity {
+class LENERITH_API Entity {
 protected:
   SDL_Texture *texture;
   Vector2 position{0, 0};

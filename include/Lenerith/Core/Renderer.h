@@ -1,10 +1,12 @@
 #pragma once
 
-#include <Lenerith/Core/Window.h>
 #include <SDL3/SDL_render.h>
 
+#include <Lenerith/Core/Window.h>
+#include <Lenerith/export.h>
+
 namespace Lenerith {
-class Renderer {
+class LENERITH_API Renderer {
 public:
   SDL_Renderer *SDLrenderer;
   Renderer(const Lenerith::Window &window);

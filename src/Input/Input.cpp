@@ -1,3 +1,5 @@
+#define LENERITH_EXPORT
+
 #include "Lenerith/Input/InputMap.h"
 #include <Lenerith/Input/Input.h>
 

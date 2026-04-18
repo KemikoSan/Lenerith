@@ -4,12 +4,10 @@
 #include <Lenerith/Core/Event.h>
 #include <Lenerith/Core/Renderer.h>
 #include <Lenerith/Core/Window.h>
-
-using Lenerith::Renderer;
-using Lenerith::Window;
+#include <Lenerith/export.h>
 
 namespace Lenerith {
-class Engine {
+class LENERITH_API Engine {
 private:
   Window window;
   Renderer renderer;
@@ -17,8 +15,8 @@ private:
 public:
   Engine();
   ~Engine();
-  Renderer *getRenderer();
-  Window *getWindow();
+  Lenerith::Renderer *getRenderer();
+  Lenerith::Window *getWindow();
   void pollEvents();
 };
 }; // namespace Lenerith

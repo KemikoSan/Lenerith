@@ -1,9 +1,10 @@
 #pragma once
 
 #include "SDL3/SDL_rect.h"
+#include <Lenerith/export.h>
 #include <SDL3/SDL_render.h>
 
-class Animation {
+class LENERITH_API Animation {
 private:
   // set of tiles or pointer to set of tiles
   float tileWidth;

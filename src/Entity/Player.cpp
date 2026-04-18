@@ -1,3 +1,5 @@
+#define LENERITH_EXPORT
+
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_surface.h"
 
@@ -52,7 +54,7 @@ void Player::update() {
   }
 }
 
-void Player::render(SDL_Renderer *renderer, Camera *camera) {
+void Player::render(SDL_Renderer *renderer, Lenerith::Camera *camera) {
   SDL_FRect dest = {.x = position.x - camera->viewport.x, .y = position.y - camera->viewport.y, .w = 450.f, .h = 490.f};
 
   if (isWalking) {

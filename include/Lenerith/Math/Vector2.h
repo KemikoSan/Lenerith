@@ -1,6 +1,7 @@
 #pragma once
+#include <Lenerith/export.h>
 
-class Vector2 {
+class LENERITH_API Vector2 {
 public:
   float x;
   float y;

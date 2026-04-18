@@ -5,9 +5,10 @@
 
 #include <Lenerith/Input/GamepadState.h>
 #include <Lenerith/Input/InputMap.h>
+#include <Lenerith/export.h>
 
 namespace Lenerith {
-class Input {
+class LENERITH_API Input {
 private:
   bool keys[512] = {};
 
