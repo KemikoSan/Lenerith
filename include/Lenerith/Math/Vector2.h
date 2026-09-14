@@ -1,6 +1,8 @@
 #pragma once
-#include <Lenerith/export.h>
 
+#include <Lenerith/DLL.h>
+
+namespace Lenerith {
 class LENERITH_API Vector2 {
 public:
   float x;
@@ -23,3 +25,4 @@ public:
 
   Vector2(float x, float y);
 };
+}; // namespace Lenerith

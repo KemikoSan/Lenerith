@@ -10,14 +10,14 @@
 
 #include <Nlohmann/json.hpp>
 
-#include "Lenerith/Entity/Entity.h"
-#include "Lenerith/Entity/Player.h"
-#include "Lenerith/Math/Vector2.h"
-#include "Lenerith/Scene/Background.h"
+#include <Lenerith/Entity/Entity.h>
 #include <Lenerith/Entity/Object.h>
+#include <Lenerith/Entity/Player.h>
+#include <Lenerith/Math/Vector2.h>
+#include <Lenerith/Scene/Background.h>
 #include <Lenerith/Scene/Scene.h>
 
-Lenerith::Scene::Scene(SDL_Renderer *render, const std::filesystem::path &path) : renderer(render), path(path) {}
+Lenerith::Scene::Scene(const std::filesystem::path &path) : path(path) {}
 
 void Lenerith::Scene::update() {
   for (auto &entity : entities) {

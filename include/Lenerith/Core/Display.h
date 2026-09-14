@@ -3,6 +3,6 @@
 
 struct Display {
   std::string name;
-  int modesCount;
+  int modesCount = 0;
   SDL_DisplayMode **display_modes = nullptr;
 };

@@ -42,3 +42,6 @@
 .cache
 build
 SDL3
+
+# docs
+TODO.md

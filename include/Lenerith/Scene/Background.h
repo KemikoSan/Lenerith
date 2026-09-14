@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Lenerith/export.h>
+#include <Lenerith/DLL.h>
 #include <SDL3/SDL_render.h>
 
 namespace Lenerith {

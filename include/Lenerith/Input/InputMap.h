@@ -1,7 +1,7 @@
 #pragma once
 
-#include "SDL3/SDL_gamepad.h"
-#include "SDL3/SDL_scancode.h"
+#include <SDL3/SDL_gamepad.h>
+#include <SDL3/SDL_scancode.h>
 
 enum class Keyboard : int {
   UNKNOWN = SDL_SCANCODE_UNKNOWN,

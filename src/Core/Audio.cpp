@@ -1,9 +1,11 @@
 #define LENERITH_EXPORT
 
-#include "SDL3_mixer/SDL_mixer.h"
+#include <algorithm>
+
+#include <SDL3_mixer/SDL_mixer.h>
+
 #include <Lenerith/Core/Audio.h>
 #include <Lenerith/Core/Config.h>
-#include <algorithm>
 
 Lenerith::Audio::Audio() {
   MIX_Init();
@@ -19,9 +21,19 @@ Lenerith::Audio &Lenerith::Audio::instance() {
 }
 
 Lenerith::Audio::~Audio() {
+  SDL_CloseIO(musicStream);
   MIX_DestroyTrack(musicTrack);
   MIX_DestroyMixer(mixer);
   MIX_Quit();
+}
+
+MIX_Audio *Lenerith::Audio::loadMusic(const char *path) {
+  if (musicStream) {
+    SDL_CloseIO(musicStream);
+  }
+  musicStream = SDL_IOFromFile(path, "r");
+  MIX_Audio *music = MIX_LoadAudio_IO(mixer, musicStream, false, true);
+  return music;
 }
 
 void Lenerith::Audio::playSound(MIX_Audio *sound) {

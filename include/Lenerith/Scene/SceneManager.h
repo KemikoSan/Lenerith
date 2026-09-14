@@ -1,8 +1,9 @@
 #pragma once
 
-#include <Lenerith/Scene/Scene.h>
-#include <Lenerith/export.h>
 #include <vector>
+
+#include <Lenerith/DLL.h>
+#include <Lenerith/Scene/Scene.h>
 
 namespace Lenerith {
 class LENERITH_API SceneManager {
@@ -11,9 +12,10 @@ public:
   std::vector<Scene> scenes;
   int currentScene;
   Scene *getCurrentScene();
-  // void setCurrentScene(int scene);
-  void nextScene();
-  void previousScene();
+  void loadScene(int scene);
+  void loadNextScene();
+  void loadPreviousScene();
+  void loadSceneList();
   SceneManager();
   ~SceneManager();
   SceneManager(const SceneManager &) = delete;

@@ -4,9 +4,9 @@
 
 #include "SDL3/SDL_rect.h"
 
-#include "Lenerith/Entity/Player.h"
-#include "Lenerith/Math/Vector2.h"
-#include <Lenerith/export.h>
+#include <Lenerith/DLL.h>
+#include <Lenerith/Entity/Player.h>
+#include <Lenerith/Math/Vector2.h>
 
 namespace Lenerith {
 class LENERITH_API TriggerBox {

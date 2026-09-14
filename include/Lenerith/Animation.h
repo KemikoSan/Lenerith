@@ -1,12 +1,14 @@
 #pragma once
 
-#include "SDL3/SDL_rect.h"
-#include <Lenerith/export.h>
+#include <SDL3/SDL_rect.h>
 #include <SDL3/SDL_render.h>
 
+#include <Lenerith/DLL.h>
+
+namespace Lenerith {
 class LENERITH_API Animation {
 private:
-  // set of tiles or pointer to set of tiles
+  SDL_Texture *tileSet;
   float tileWidth;
   float tileHeight;
   int totalFrames;
@@ -15,9 +17,9 @@ private:
   float timer = 0.f;
 
 public:
-  SDL_Texture *tileSet;
   SDL_FRect Play(float deltatime);
   void Stop();
   Animation(SDL_Texture *tileSet, float frameWidth, float frameHeight, int totalFrames, int fps);
   ~Animation();
 };
+}; // namespace Lenerith

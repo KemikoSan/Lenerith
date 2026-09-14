@@ -4,7 +4,7 @@
 #include "SDL3/SDL_render.h"
 
 #include "Lenerith/Math/Vector2.h"
-#include <Lenerith/export.h>
+#include <Lenerith/DLL.h>
 
 namespace Lenerith {
 class LENERITH_API Entity {
@@ -18,20 +18,9 @@ public:
   Entity() = default;
   Entity(const Vector2 &position, SDL_Texture *texture);
   virtual ~Entity();
-  SDL_Texture *getTexture() const {
-    return texture;
-  }
-
-  void setTexture(SDL_Texture *texture) {
-    this->texture = texture;
-  }
-
-  const Vector2 &getPosition() const {
-    return position;
-  }
-
-  const SDL_FRect *getShape() const {
-    return &shape;
-  };
+  SDL_Texture *getTexture() const;
+  void setTexture(SDL_Texture *texture);
+  const Vector2 &getPosition() const;
+  const SDL_FRect *getShape() const;
 };
 }; // namespace Lenerith

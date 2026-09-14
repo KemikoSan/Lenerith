@@ -1,0 +1,19 @@
+#pragma once
+
+#include <Lenerith/DLL.h>
+#include <random>
+
+namespace Lenerith {
+class LENERITH_API RNG {
+private:
+  std::mt19937 generator;
+
+public:
+  RNG();
+  bool randomEvent(int probability);
+  int diceRoll();
+  int rpgDiceRoll(int pips);
+  int randomInt(int min, int max);
+  float randomFloat(float min, float max);
+};
+}; // namespace Lenerith

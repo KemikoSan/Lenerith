@@ -1,11 +1,11 @@
 #include <unordered_map>
 #include <vector>
 
-#include "SDL3/SDL_joystick.h"
+#include <SDL3/SDL_joystick.h>
 
+#include <Lenerith/DLL.h>
 #include <Lenerith/Input/GamepadState.h>
 #include <Lenerith/Input/InputMap.h>
-#include <Lenerith/export.h>
 
 namespace Lenerith {
 class LENERITH_API Input {

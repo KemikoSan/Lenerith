@@ -1,7 +1,8 @@
 #pragma once
 
-#include "SDL3/SDL_gamepad.h"
 #include <array>
+
+#include <SDL3/SDL_gamepad.h>
 
 struct GamepadState {
   SDL_Gamepad *handle = nullptr;

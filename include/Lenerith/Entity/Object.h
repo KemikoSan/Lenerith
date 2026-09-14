@@ -1,9 +1,10 @@
 #pragma once
 
+#include "SDL3/SDL_render.h"
+
 #include "Lenerith/Entity/Entity.h"
 #include "Lenerith/Math/Vector2.h"
-#include "SDL3/SDL_render.h"
-#include <Lenerith/export.h>
+#include <Lenerith/DLL.h>
 
 namespace Lenerith {
 class LENERITH_API Object : public Lenerith::Entity {

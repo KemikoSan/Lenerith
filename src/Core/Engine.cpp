@@ -1,15 +1,17 @@
 #define LENERITH_EXPORT
 
-#include "SDL3/SDL_events.h"
-#include "SDL3/SDL_gamepad.h"
-#include "SDL3/SDL_video.h"
+#include <string_view>
 
-#include "Lenerith/Core/Config.h"
-#include "Lenerith/Core/Window.h"
+#include <SDL3/SDL_events.h>
+#include <SDL3/SDL_gamepad.h>
+#include <SDL3/SDL_video.h>
+
+#include <Lenerith/Core/Config.h>
 #include <Lenerith/Core/Engine.h>
+#include <Lenerith/Core/Window.h>
 #include <Lenerith/Input/Input.h>
 
-Lenerith::Engine::Engine() : window("lol"), renderer(window) {
+Lenerith::Engine::Engine() : window(""), renderer(window) {
   if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMEPAD)) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Init Error", SDL_GetError(), nullptr);
   }
@@ -21,7 +23,7 @@ Lenerith::Engine::~Engine() {
 
 void Lenerith::Engine::pollEvents() {
   SDL_Event event;
-  Lenerith::Input &input = Input::instance();
+  Input &input = Input::instance();
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
     case SDL_EVENT_QUIT:
@@ -57,10 +59,10 @@ void Lenerith::Engine::pollEvents() {
       input.gamepadsNum.erase(std::find(input.gamepadsNum.begin(), input.gamepadsNum.end(), event.gdevice.which));
       eventQueue.push({.type = EventType::GAMEPAD_REMOVED});
       break;
+    case SDL_EVENT_WINDOW_RESIZED:
+      SDL_GetWindowSize(window.getSDLWindow(), &Config::instance().screenWidth, &Config::instance().screenHeight);
     default:
       break;
-    case SDL_EVENT_WINDOW_RESIZED:
-      SDL_GetWindowSize(window.getSDLWindow(), (int *)&Config::instance().screenWidth, (int *)&Config::instance().screenHeight);
     }
   }
 }

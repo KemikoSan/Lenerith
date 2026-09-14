@@ -1,10 +1,12 @@
 #define LENERITH_EXPORT
 
+#include <functional>
+
+#include "SDL3/SDL_rect.h"
+
 #include "Lenerith/Entity/Player.h"
 #include "Lenerith/Math/Vector2.h"
-#include "SDL3/SDL_rect.h"
 #include <Lenerith/TriggerBox.h>
-#include <functional>
 
 Lenerith::TriggerBox::TriggerBox(const Vector2 &position, const Vector2 &size, const std::function<void()> &callback)
     : area(SDL_FRect{position.x, position.y, size.x, size.y}), callback(callback) {};

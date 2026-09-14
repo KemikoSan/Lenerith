@@ -5,15 +5,15 @@
 #include <SDL3_ttf/SDL_ttf.h>
 
 #include "Lenerith/Math/Vector2.h"
-#include <Lenerith/export.h>
+#include <Lenerith/DLL.h>
 
 namespace Lenerith {
 class LENERITH_API Text {
 private:
   std::string text;
-  std::string previousText;
-  TTF_Font *font;
-  SDL_Surface *surface;
+  bool textChanged = false;
+  TTF_Font *font = nullptr;
+  SDL_Surface *surface = nullptr;
   Vector2 position;
   SDL_Color color;
 
@@ -22,5 +22,6 @@ public:
   ~Text();
   void update();
   void setText(const std::string &text);
+  void setColor(const SDL_Color &color);
 };
 }; // namespace Lenerith

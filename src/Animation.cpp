@@ -1,16 +1,17 @@
 #define LENERITH_EXPORT
 
-#include "SDL3/SDL_render.h"
+#include <SDL3/SDL_render.h>
+
 #include <Lenerith/Animation.h>
 
-Animation::Animation(SDL_Texture *tileSet, float tileWidth, float tileHeight, int totalFrames, int fps)
+Lenerith::Animation::Animation(SDL_Texture *tileSet, float tileWidth, float tileHeight, int totalFrames, int fps)
     : tileSet(tileSet), tileWidth(tileWidth), tileHeight(tileHeight), totalFrames(totalFrames), fps(fps) {}
 
-Animation::~Animation() {
+Lenerith::Animation::~Animation() {
   SDL_DestroyTexture(tileSet);
 }
 
-SDL_FRect Animation::Play(float deltatime) {
+SDL_FRect Lenerith::Animation::Play(float deltatime) {
   timer += deltatime;
   if (timer >= (1.0f / fps)) {
     timer = 0.0f;
@@ -19,7 +20,7 @@ SDL_FRect Animation::Play(float deltatime) {
   return {.x = currentFrame * tileWidth, .y = 0, .w = tileWidth, .h = tileHeight};
 }
 
-void Animation::Stop() {
+void Lenerith::Animation::Stop() {
   timer = 0.0f;
   currentFrame = 0;
 }

@@ -1,36 +1,36 @@
 #pragma once
 
-#include <string>
+#include <string_view>
 
-#include "SDL3/SDL_stdinc.h"
 #include "SDL3/SDL_video.h"
 #include <SDL3/SDL.h>
 
 #include <Lenerith/Core/Config.h>
 #include <Lenerith/Core/Display.h>
-#include <Lenerith/export.h>
+#include <Lenerith/DLL.h>
 
 // Create SDL window
 namespace Lenerith {
 class LENERITH_API Window {
 private:
-  SDL_Window *SDLwindow;
-  Display *displays;
+  SDL_Window *SDLwindow = nullptr;
+  Display *displays = nullptr;
   int displaysCount;
-  Uint32 ScreenWidth;
-  Uint32 ScreenHeight;
+  int ScreenWidth;
+  int ScreenHeight;
   bool isFullScreen;
   bool isBorderless;
   int currentMonitor = 0;
   int currentDisplayMode = 0;
 
 public:
-  Window(const std::string &windowTitle);
+  Window(std::string_view title);
   ~Window();
   void toggleFullScreen();
   void toggleBorderless();
-  void resize(Uint32 width, Uint32 height);
-  void getDisplayModes();
+  void setTitle(std::string_view title);
+  void resize(int width, int height);
+  void getDisplayModes() const;
   SDL_Window *getSDLWindow() const;
 };
 }; // namespace Lenerith

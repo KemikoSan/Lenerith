@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Lenerith/export.h>
+#include <Lenerith/DLL.h>
 
 namespace Lenerith {
 class LENERITH_API Time {

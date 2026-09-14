@@ -1,12 +1,15 @@
 #define LENERITH_EXPORT
 
+#include <string_view>
+
 #include "SDL3/SDL_stdinc.h"
-#include <Lenerith/Core/Window.h>
 #include <SDL3/SDL_video.h>
 
-Lenerith::Window::Window(const std::string &WindowTitle)
+#include <Lenerith/Core/Window.h>
+
+Lenerith::Window::Window(std::string_view WindowTitle)
     : ScreenWidth(Config::instance().screenWidth), ScreenHeight(Config::instance().screenHeight), isFullScreen(Config::instance().fullscreen),
-      SDLwindow(SDL_CreateWindow(WindowTitle.c_str(), Config::instance().screenWidth, Config::instance().screenHeight, SDL_WINDOW_RESIZABLE)) {
+      SDLwindow(SDL_CreateWindow(WindowTitle.data(), Config::instance().screenWidth, Config::instance().screenHeight, SDL_WINDOW_RESIZABLE)) {
 
   SDL_DisplayID *displayIDs = SDL_GetDisplays(&displaysCount);
   displays = new Display[displaysCount];
@@ -43,8 +46,12 @@ SDL_Window *Lenerith::Window::getSDLWindow() const {
   return SDLwindow;
 }
 
-void Lenerith::Window::resize(Uint32 width, Uint32 height) {
+void Lenerith::Window::resize(int width, int height) {
   ScreenWidth = width;
   ScreenHeight = height;
   SDL_SetWindowSize(SDLwindow, width, height);
+}
+
+void Lenerith::Window::setTitle(std::string_view title) {
+  SDL_SetWindowTitle(SDLwindow, title.data());
 }

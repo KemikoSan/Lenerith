@@ -1,7 +1,7 @@
 #include <SDL3/SDL_rect.h>
 
+#include <Lenerith/DLL.h>
 #include <Lenerith/Math/Vector2.h>
-#include <Lenerith/export.h>
 
 namespace Lenerith {
 class LENERITH_API ProgressBar {
