@@ -1,17 +1,15 @@
 #define LENERITH_EXPORT
 
-#include <string_view>
-
 #include <SDL3/SDL_events.h>
 #include <SDL3/SDL_gamepad.h>
 #include <SDL3/SDL_video.h>
 
-#include <Lenerith/Core/Config.h>
-#include <Lenerith/Core/Engine.h>
-#include <Lenerith/Core/Window.h>
-#include <Lenerith/Input/Input.h>
+#include <Lenerith/Core/Config.hpp>
+#include <Lenerith/Core/Engine.hpp>
+#include <Lenerith/Core/Window.hpp>
+#include <Lenerith/Input/Input.hpp>
 
-Lenerith::Engine::Engine() : window(""), renderer(window) {
+Lenerith::Engine::Engine() : window(), renderer(window) {
   if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMEPAD)) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Init Error", SDL_GetError(), nullptr);
   }
@@ -27,7 +25,7 @@ void Lenerith::Engine::pollEvents() {
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
     case SDL_EVENT_QUIT:
-      eventQueue.push({.type = EventType::QUIT});
+      eventQueue.push(EventType::QUIT);
       break;
     case SDL_EVENT_KEY_DOWN:
       input.setKey(event.key.scancode, true);
@@ -46,18 +44,16 @@ void Lenerith::Engine::pollEvents() {
       break;
     case SDL_EVENT_GAMEPAD_ADDED: {
       SDL_Gamepad *gamepad = SDL_OpenGamepad(event.gdevice.which);
-      GamepadState state{};
-      state.handle = gamepad;
-      state.type = SDL_GetGamepadType(gamepad);
       input.gamepads.insert(std::make_pair(event.gdevice.which, gamepad));
-      input.gamepadsNum.push_back(event.gdevice.which);
+      input.gamepadsId.push_back(event.gdevice.which);
+      eventQueue.push(EventType::GAMEPAD_ADDED);
       break;
     }
     case SDL_EVENT_GAMEPAD_REMOVED:
       SDL_CloseGamepad(SDL_GetGamepadFromID(event.gdevice.which));
       input.gamepads.erase(event.gdevice.which);
-      input.gamepadsNum.erase(std::find(input.gamepadsNum.begin(), input.gamepadsNum.end(), event.gdevice.which));
-      eventQueue.push({.type = EventType::GAMEPAD_REMOVED});
+      input.gamepadsId.erase(std::find(input.gamepadsId.begin(), input.gamepadsId.end(), event.gdevice.which));
+      eventQueue.push(EventType::GAMEPAD_REMOVED);
       break;
     case SDL_EVENT_WINDOW_RESIZED:
       SDL_GetWindowSize(window.getSDLWindow(), &Config::instance().screenWidth, &Config::instance().screenHeight);

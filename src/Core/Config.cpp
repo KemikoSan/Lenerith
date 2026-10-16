@@ -1,6 +1,6 @@
 #define LENERITH_EXPORT
 
-#include <Lenerith/Core/Config.h>
+#include <Lenerith/Core/Config.hpp>
 #include <Nlohmann/json.hpp>
 #include <fstream>
 
@@ -24,7 +24,7 @@ void Lenerith::Config::loadConfig() {
   }
 }
 
-void Lenerith::Config::saveConfig(const Config &config) {
+void Lenerith::Config::saveConfig() {
   std::ofstream file("config.json");
   if (file.good()) {
     nlohmann::json config;

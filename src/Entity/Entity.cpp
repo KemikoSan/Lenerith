@@ -1,6 +1,6 @@
 #define LENERITH_EXPORT
 
-#include <Lenerith/Entity/Entity.h>
+#include <Lenerith/Entity/Entity.hpp>
 
 Lenerith::Entity::Entity(const Vector2 &position, SDL_Texture *texture) : position(position), texture(texture) {};
 Lenerith::Entity::~Entity() = default;
@@ -13,7 +13,7 @@ void Lenerith::Entity::setTexture(SDL_Texture *texture) {
   this->texture = texture;
 }
 
-const Vector2 &Lenerith::Entity::getPosition() const {
+const Lenerith::Vector2 &Lenerith::Entity::getPosition() const {
   return position;
 }
 

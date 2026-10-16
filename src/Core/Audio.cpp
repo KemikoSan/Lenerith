@@ -4,8 +4,8 @@
 
 #include <SDL3_mixer/SDL_mixer.h>
 
-#include <Lenerith/Core/Audio.h>
-#include <Lenerith/Core/Config.h>
+#include <Lenerith/Core/Audio.hpp>
+#include <Lenerith/Core/Config.hpp>
 
 Lenerith::Audio::Audio() {
   MIX_Init();
@@ -62,15 +62,19 @@ void Lenerith::Audio::playMusic(MIX_Audio *music) {
   MIX_SetTrackLoops(musicTrack, -1);
 }
 
-inline void Lenerith::Audio::pauseMusic() {
+void Lenerith::Audio::pauseMusic() {
   MIX_PauseTrack(musicTrack);
 }
 
-inline void Lenerith::Audio::setMasterVolume(float volume) {
+void Lenerith::Audio::resumeMusic() {
+  MIX_ResumeTrack(musicTrack);
+}
+
+void Lenerith::Audio::setMasterVolume(float volume) {
   MIX_SetMixerGain(mixer, volume);
 }
 
-inline void Lenerith::Audio::setMusicVolume(float volume) {
+void Lenerith::Audio::setMusicVolume(float volume) {
   MIX_SetTrackGain(musicTrack, volume);
 }
 

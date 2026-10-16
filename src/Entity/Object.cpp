@@ -1,8 +1,8 @@
 #define LENERITH_EXPORT
 
-#include <Lenerith/Entity/Object.h>
-#include <Lenerith/Input/Input.h>
-#include <Lenerith/Math/Vector2.h>
+#include <Lenerith/Entity/Object.hpp>
+#include <Lenerith/Input/Input.hpp>
+#include <Lenerith/Math/Vector2.hpp>
 
 Lenerith::Object::Object(const Vector2 &position, SDL_Texture *texture) {
   this->position = position;

@@ -2,7 +2,7 @@
 
 #include "SDL3/SDL_timer.h"
 
-#include <Lenerith/Core/Time.h>
+#include <Lenerith/Core/Time.hpp>
 
 float Lenerith::Time::deltatime = 0.0f;
 float Lenerith::Time::unscaledDeltatime = 0.0f;

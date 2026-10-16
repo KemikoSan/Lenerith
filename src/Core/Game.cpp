@@ -7,13 +7,13 @@
 #include <SDL3/SDL_render.h>
 #include <SDL3_image/SDL_image.h>
 
-#include <Lenerith/Animation.h>
-#include <Lenerith/Core/Engine.h>
-#include <Lenerith/Core/Game.h>
-#include <Lenerith/Core/Time.h>
-#include <Lenerith/Core/Window.h>
-#include <Lenerith/Input/Input.h>
-#include <Lenerith/Scene/SceneManager.h>
+#include <Lenerith/Animation.hpp>
+#include <Lenerith/Core/Engine.hpp>
+#include <Lenerith/Core/Game.hpp>
+#include <Lenerith/Core/Time.hpp>
+#include <Lenerith/Core/Window.hpp>
+#include <Lenerith/Input/Input.hpp>
+#include <Lenerith/Scene/SceneManager.hpp>
 
 Lenerith::Game::Game() {}
 
@@ -30,8 +30,8 @@ void Lenerith::Game::run() {
   isPaused = false;
 
   // Loading scenes
-  sceneManager.loadScenes();
-  sceneManager.getCurrentScene()->load();
+  sceneManager.loadSceneList();
+  sceneManager.loadScene(0);
 
   // SDL_Texture *walk = IMG_LoadTexture(renderer->SDLrenderer, "guncat.png");
   // SDL_Texture *idle = IMG_LoadTexture(renderer->SDLrenderer, "idle.png");
@@ -66,14 +66,14 @@ void Lenerith::Game::run() {
 
     // Render Stage
     renderer->renderClear();
-    sceneManager.scenes[sceneManager.currentScene].render(&camera);
+    sceneManager.scenes[sceneManager.currentScene].render(renderer, &camera);
     // player.render(renderer->SDLrenderer, &camera);
     // player2.render(renderer->SDLrenderer, &camera);
 
     // DEBUB
     SDL_SetRenderDrawColor(renderer->getSDLRenderer(), 255, 255, 255, 255);
     SDL_RenderDebugText(renderer->getSDLRenderer(), 10.f, 10.f, "Lenerith-Tech");
-    SDL_RenderDebugText(renderer->getSDLRenderer(), 10.f, 20.f, SDL_GetRendererName(renderer->getSDLRenderer());
+    SDL_RenderDebugText(renderer->getSDLRenderer(), 10.f, 20.f, SDL_GetRendererName(renderer->getSDLRenderer()));
     SDL_RenderDebugText(renderer->getSDLRenderer(), 10.f, 30.f, std::format("FPS: {}", std::floor(1.f / Time::unscaledDeltatime)).c_str());
     // DEBUG
 
@@ -82,19 +82,17 @@ void Lenerith::Game::run() {
   }
 }
 
-// every event that is not input (Some of this should user set :o)
+// Every event that is not input (Some of this should be set by user)
 void Lenerith::Game::handleEvents() {
   for (size_t i = 0; i < eventQueue.size(); i++) {
-    Event event = eventQueue.front();
-    switch (event.type) {
+    EventType event = eventQueue.front();
+    switch (event) {
     case EventType::QUIT:
       isRunning = false;
       return;
       break;
     case EventType::PAUSE:
       isPaused = !isPaused;
-      break;
-    case EventType::INPUT:
       break;
     case EventType::GAMEPAD_ADDED:
       break;

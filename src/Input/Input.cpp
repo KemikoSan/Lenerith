@@ -1,7 +1,7 @@
 #define LENERITH_EXPORT
 
-#include "Lenerith/Input/InputMap.h"
-#include <Lenerith/Input/Input.h>
+#include "Lenerith/Input/InputMap.hpp"
+#include <Lenerith/Input/Input.hpp>
 
 Lenerith::Input &Lenerith::Input::instance() {
   static Lenerith::Input instance;
@@ -17,27 +17,27 @@ void Lenerith::Input::setKey(int key, bool down) {
 }
 
 bool Lenerith::Input::isButtonPressed(SDL_JoystickID id, Gamepad button) const {
-  if (id >= gamepadsNum.size()) {
+  if (id >= gamepadsId.size()) {
     return false;
   }
-  auto it = gamepads.find(gamepadsNum[id]);
+  auto it = gamepads.find(gamepadsId[id]);
   bool pressed = it->second.buttons[static_cast<int>(button)] && !it->second.prevButtons[static_cast<int>(button)];
   return it->second.buttons[static_cast<int>(button)] && !it->second.prevButtons[static_cast<int>(button)];
 }
 
 bool Lenerith::Input::isButtonDown(SDL_JoystickID id, Gamepad button) const {
-  if (id >= gamepadsNum.size()) {
+  if (id >= gamepadsId.size()) {
     return false;
   }
-  auto it = gamepads.find(gamepadsNum[id]);
+  auto it = gamepads.find(gamepadsId[id]);
   return it->second.buttons[static_cast<int>(button)];
 }
 
 float Lenerith::Input::getAxis(SDL_JoystickID id, Gamepad axis) const {
-  if (id >= gamepadsNum.size()) {
+  if (id >= gamepadsId.size()) {
     return 0.f;
   }
-  SDL_JoystickID device_id = gamepads.find(gamepadsNum[id])->first;
+  SDL_JoystickID device_id = gamepads.find(gamepadsId[id])->first;
   return gamepads.at(device_id).axes[static_cast<int>(axis)];
 }
 

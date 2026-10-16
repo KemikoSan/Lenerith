@@ -10,6 +10,7 @@
 
 #include <Nlohmann/json.hpp>
 
+#include <Lenerith/Core/Renderer.h>
 #include <Lenerith/Entity/Entity.h>
 #include <Lenerith/Entity/Object.h>
 #include <Lenerith/Entity/Player.h>
@@ -25,12 +26,12 @@ void Lenerith::Scene::update() {
   }
 }
 
-void Lenerith::Scene::render(Camera *camera) {
+void Lenerith::Scene::render(Renderer *renderer, Camera *camera) {
   for (auto &background : backgrounds) {
     if (background.texture) {
       SDL_FRect rect{-camera->viewport.x * background.paralax, -camera->viewport.y * background.paralax, static_cast<float>(background.texture->w),
                      static_cast<float>(background.texture->h)};
-      SDL_RenderTexture(renderer, background.texture, nullptr, &rect);
+      renderer->renderTexture(background.texture, nullptr, &rect);
     }
   }
 
@@ -40,18 +41,18 @@ void Lenerith::Scene::render(Camera *camera) {
       Vector2 position = entity->getPosition();
       SDL_FRect rect{position.x - camera->viewport.x, position.y - camera->viewport.y, static_cast<float>(texture->w),
                      static_cast<float>(texture->h)};
-      SDL_RenderTexture(renderer, texture, nullptr, &rect);
+      renderer->renderTexture(texture, nullptr, &rect);
     }
   }
 }
 
-void Lenerith::Scene::load() {
+void Lenerith::Scene::load(Renderer *renderer) {
   std::ifstream file(path, std::ios::binary);
   nlohmann::json data = nlohmann::json::from_ubjson(file);
   for (auto &background : data["backgrounds"]) {
-    std::string path = background["background"].get<std::string>();
+    std::string_view path = background["background"].get<std::string_view>();
     float paralax = background["paralax"].get<float>();
-    backgrounds.emplace_back(IMG_LoadTexture(renderer, path.c_str()), paralax);
+    backgrounds.emplace_back(renderer->loadTexture(path), paralax);
   }
 }
 
