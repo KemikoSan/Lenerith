@@ -1,9 +1,9 @@
-#include "Lenerith/Time/Interval.hpp"
 #define LENERITH_EXPORT
 
-#include <Lenerith/Time/Interval.hpp>
 #include <mutex>
 #include <thread>
+
+#include <Lenerith/Time/Interval.hpp>
 
 Lenerith::Interval::Interval(std::chrono::duration<float> interval, std::function<void()> callback) : interval(interval), callback(callback) {
   thread = std::thread([&] {
@@ -21,7 +21,7 @@ void Lenerith::Interval::stop() {
     std::unique_lock<std::mutex> lock(mutex);
     running = false;
     lock.unlock();
-    cv.notify_one();
+    condition.notify_one();
     if (thread.joinable()) {
       thread.join();
     }

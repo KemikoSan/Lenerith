@@ -2,7 +2,7 @@
 
 #include <random>
 
-#include <Lenerith/Math/RNG.h>
+#include <Lenerith/Math/RNG.hpp>
 
 Lenerith::RNG::RNG() : generator(std::random_device{}()) {}
 
@@ -28,5 +28,10 @@ int Lenerith::RNG::randomInt(int min, int max) {
 
 float Lenerith::RNG::randomFloat(float min, float max) {
   std::uniform_real_distribution<float> distribution(min, max);
+  return distribution(generator);
+}
+
+double Lenerith::RNG::randomDouble(double min, double max) {
+  std::uniform_real_distribution<double> distribution(min, max);
   return distribution(generator);
 }

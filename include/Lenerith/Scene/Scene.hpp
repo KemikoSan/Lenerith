@@ -1,8 +1,10 @@
-#include "Lenerith/Core/Renderer.hpp"
+#pragma once
+
 #include <filesystem>
 #include <memory>
 #include <vector>
 
+#include <Lenerith/Core/Renderer.hpp>
 #include <Lenerith/DLL.hpp>
 #include <Lenerith/Entity/Entity.hpp>
 #include <Lenerith/Entity/Player.hpp>

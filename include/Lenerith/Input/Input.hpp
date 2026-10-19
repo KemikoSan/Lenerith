@@ -1,3 +1,4 @@
+#include <array>
 #include <unordered_map>
 #include <vector>
 
@@ -10,12 +11,14 @@
 namespace Lenerith {
 class LENERITH_API Input {
 private:
-  bool keys[512] = {};
+  std::array<bool, 512> keys{};
+  std::array<bool, 512> prevkeys{};
 
 public:
   static Input &instance();
   std::unordered_map<SDL_JoystickID, GamepadState> gamepads;
   std::vector<SDL_JoystickID> gamepadsId;
+  bool isKeyPressed(Keyboard key) const;
   bool isKeyDown(Keyboard key) const;
   void setKey(int key, bool down);
   bool isButtonPressed(SDL_JoystickID id, Gamepad button) const;

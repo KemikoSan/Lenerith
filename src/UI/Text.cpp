@@ -1,6 +1,6 @@
 #define LENERITH_EXPORT
 
-#include <Lenerith/UI/Text.h>
+#include <Lenerith/UI/Text.hpp>
 
 Lenerith::Text::Text(const std::string &text, const Vector2 &position, TTF_Font *font, const SDL_Color &color)
     : text(text), position(position), font(font), color(color) {

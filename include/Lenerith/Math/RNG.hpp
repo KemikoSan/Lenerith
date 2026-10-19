@@ -15,5 +15,6 @@ public:
   int rpgDiceRoll(int pips);
   int randomInt(int min, int max);
   float randomFloat(float min, float max);
+  double randomDouble(double min, double max);
 };
 }; // namespace Lenerith

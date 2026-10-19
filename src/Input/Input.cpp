@@ -1,11 +1,15 @@
 #define LENERITH_EXPORT
 
-#include "Lenerith/Input/InputMap.hpp"
 #include <Lenerith/Input/Input.hpp>
+#include <Lenerith/Input/InputMap.hpp>
 
 Lenerith::Input &Lenerith::Input::instance() {
   static Lenerith::Input instance;
   return instance;
+}
+
+bool Lenerith::Input::isKeyPressed(Keyboard key) const {
+  return keys[static_cast<int>(key)] && !prevkeys[static_cast<int>(key)];
 }
 
 bool Lenerith::Input::isKeyDown(Keyboard key) const {
@@ -50,6 +54,7 @@ void Lenerith::Input::setAxis(SDL_JoystickID id, int axis, float value) {
 }
 
 void Lenerith::Input::update() {
+  prevkeys = keys;
   for (auto &[id, pad] : gamepads) {
     pad.prevButtons = pad.buttons;
   }
