@@ -15,13 +15,17 @@ Lenerith::Engine::Engine() : window(), renderer(window) {
   }
 }
 
+Lenerith::Engine &Lenerith::Engine::instance() {
+  static Engine instance;
+  return instance;
+}
+
 Lenerith::Engine::~Engine() {
   SDL_Quit();
 }
 
 void Lenerith::Engine::pollEvents() {
   SDL_Event event;
-  Input &input = Input::instance();
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
     case SDL_EVENT_QUIT:
@@ -56,17 +60,17 @@ void Lenerith::Engine::pollEvents() {
       eventQueue.push(EventType::GAMEPAD_REMOVED);
       break;
     case SDL_EVENT_WINDOW_RESIZED:
-      SDL_GetWindowSize(window.getSDLWindow(), &Config::instance().screenWidth, &Config::instance().screenHeight);
+      SDL_GetWindowSize(window.getSDLWindow(), &config.screenWidth, &config.screenHeight);
     default:
       break;
     }
   }
 }
 
-Lenerith::Renderer *Lenerith::Engine::getRenderer() {
-  return &renderer;
-}
-
-Lenerith::Window *Lenerith::Engine::getWindow() {
-  return &window;
-}
+// Lenerith::Renderer *Lenerith::Engine::getRenderer() {
+//   return &renderer;
+// }
+//
+// Lenerith::Window *Lenerith::Engine::getWindow() {
+//   return &window;
+// }

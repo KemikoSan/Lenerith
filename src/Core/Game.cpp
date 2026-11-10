@@ -15,27 +15,26 @@
 #include <Lenerith/Input/Input.hpp>
 #include <Lenerith/Scene/SceneManager.hpp>
 
-Lenerith::Game::Game() {}
-
 void Lenerith::Game::run() {
-  Engine engine;
-  Window *window = engine.getWindow();
-  window->setTitle("Game");
-  Renderer *renderer = engine.getRenderer();
-  Input &input = Input::instance();
-  Audio &audio = Audio::instance();
-  SceneManager sceneManager;
+  Engine &engine = Engine::instance();
+  Window &window = engine.window;
+  Renderer &renderer = engine.renderer;
+  Input &input = engine.input;
+  Audio &audio = engine.audio;
+
+  window.setTitle("Game");
 
   isRunning = true;
   isPaused = false;
 
   // Loading scenes
+  SceneManager sceneManager;
   sceneManager.loadSceneList();
   sceneManager.loadScene(0);
 
-  // SDL_Texture *walk = IMG_LoadTexture(renderer->SDLrenderer, "guncat.png");
-  // SDL_Texture *idle = IMG_LoadTexture(renderer->SDLrenderer, "idle.png");
-  //  Loading player and camera -> need change ?
+  // SDL_Texture *walk = IMG_LoadTexture(renderer.SDLrenderer, "guncat.png");
+  // SDL_Texture *idle = IMG_LoadTexture(renderer.SDLrenderer, "idle.png");
+  //  Loading player and camera . need change ?
   //  Player player(walk, idle, {400, 300}, 0);
   //  Player player2(walk, idle, {400, 300}, 1);
   Camera camera;
@@ -65,19 +64,19 @@ void Lenerith::Game::run() {
     }
 
     // Render Stage
-    renderer->renderClear();
-    sceneManager.scenes[sceneManager.currentScene].render(renderer, &camera);
-    // player.render(renderer->SDLrenderer, &camera);
-    // player2.render(renderer->SDLrenderer, &camera);
+    renderer.renderClear();
+    sceneManager.scenes[sceneManager.currentScene].render(&camera);
+    // player.render(renderer.SDLrenderer, &camera);
+    // player2.render(renderer.SDLrenderer, &camera);
 
     // DEBUB
-    SDL_SetRenderDrawColor(renderer->getSDLRenderer(), 255, 255, 255, 255);
-    SDL_RenderDebugText(renderer->getSDLRenderer(), 10.f, 10.f, "Lenerith-Tech");
-    SDL_RenderDebugText(renderer->getSDLRenderer(), 10.f, 20.f, SDL_GetRendererName(renderer->getSDLRenderer()));
-    SDL_RenderDebugText(renderer->getSDLRenderer(), 10.f, 30.f, std::format("FPS: {}", std::floor(1.f / Time::unscaledDeltatime)).c_str());
+    SDL_SetRenderDrawColor(renderer.getSDLRenderer(), 255, 255, 255, 255);
+    SDL_RenderDebugText(renderer.getSDLRenderer(), 10.f, 10.f, "Lenerith-Tech");
+    SDL_RenderDebugText(renderer.getSDLRenderer(), 10.f, 20.f, SDL_GetRendererName(renderer.getSDLRenderer()));
+    SDL_RenderDebugText(renderer.getSDLRenderer(), 10.f, 30.f, std::format("FPS: {}", std::floor(1.f / Time::unscaledDeltatime)).c_str());
     // DEBUG
 
-    renderer->renderPresent();
+    renderer.renderPresent();
     // End Render Stage
   }
 }

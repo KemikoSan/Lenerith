@@ -11,7 +11,7 @@ private:
   bool isPaused = false;
 
 public:
-  Game();
+  Game() = default;
   void setGamePaused(bool paused);
   void run();
   void quit();

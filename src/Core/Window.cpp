@@ -1,13 +1,15 @@
 #define LENERITH_EXPORT
 
-#include "SDL3/SDL_stdinc.h"
+#include <SDL3/SDL_stdinc.h>
 #include <SDL3/SDL_video.h>
 
+#include <Lenerith/Core/Engine.hpp>
 #include <Lenerith/Core/Window.hpp>
 
 Lenerith::Window::Window()
-    : ScreenWidth(Config::instance().screenWidth), ScreenHeight(Config::instance().screenHeight), isFullScreen(Config::instance().fullscreen),
-      SDLwindow(SDL_CreateWindow("", Config::instance().screenWidth, Config::instance().screenHeight, SDL_WINDOW_RESIZABLE)) {
+    : ScreenWidth(Engine::instance().config.screenWidth), ScreenHeight(Engine::instance().config.screenHeight),
+      isFullScreen(Engine::instance().config.fullscreen),
+      SDLwindow(SDL_CreateWindow("", Engine::instance().config.screenWidth, Engine::instance().config.screenHeight, SDL_WINDOW_RESIZABLE)) {
 
   SDL_DisplayID *displayIDs = SDL_GetDisplays(&displaysCount);
   displays = new Display[displaysCount];

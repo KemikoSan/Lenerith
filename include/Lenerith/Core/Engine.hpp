@@ -6,20 +6,23 @@
 #include <Lenerith/Core/Renderer.hpp>
 #include <Lenerith/Core/Window.hpp>
 #include <Lenerith/DLL.hpp>
+#include <Lenerith/Input/Input.hpp>
 
 namespace Lenerith {
 class LENERITH_API Engine {
-private:
+public:
   Config config;
   Window window;
   Renderer renderer;
   Audio audio;
+  Input input;
+
+private:
+  Engine();
 
 public:
-  Engine();
+  static Engine &instance();
   ~Engine();
-  Renderer *getRenderer();
-  Window *getWindow();
   void pollEvents();
 };
 }; // namespace Lenerith

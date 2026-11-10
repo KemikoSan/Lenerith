@@ -1,3 +1,5 @@
+#pragma once
+
 #include <array>
 #include <unordered_map>
 #include <vector>
@@ -15,7 +17,7 @@ private:
   std::array<bool, 512> prevkeys{};
 
 public:
-  static Input &instance();
+  // static Input &instance();
   std::unordered_map<SDL_JoystickID, GamepadState> gamepads;
   std::vector<SDL_JoystickID> gamepadsId;
   bool isKeyPressed(Keyboard key) const;

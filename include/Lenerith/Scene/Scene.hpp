@@ -21,8 +21,8 @@ private:
 public:
   Scene(const std::filesystem::path &path);
   void update();
-  void render(Renderer *renderer, Camera *camera);
-  void load(Renderer *renderer);
+  void render(Camera *camera);
+  void load();
   void unload();
   Scene(const Scene &) = delete;
   Scene &operator=(const Scene &) = delete;

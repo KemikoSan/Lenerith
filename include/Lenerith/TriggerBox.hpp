@@ -2,7 +2,7 @@
 
 #include <functional>
 
-#include "SDL3/SDL_rect.h"
+#include <SDL3/SDL_rect.h>
 
 #include <Lenerith/Camera.hpp>
 #include <Lenerith/DLL.hpp>

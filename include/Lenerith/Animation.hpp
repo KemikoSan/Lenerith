@@ -17,7 +17,7 @@ private:
   float timer = 0.f;
 
 public:
-  SDL_FRect Play(float deltatime);
+  SDL_FRect Play();
   void Stop();
   Animation(SDL_Texture *tileSet, float frameWidth, float frameHeight, int totalFrames, int fps);
   ~Animation();

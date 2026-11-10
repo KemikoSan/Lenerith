@@ -6,18 +6,14 @@
 
 #include <Lenerith/Core/Audio.hpp>
 #include <Lenerith/Core/Config.hpp>
+#include <Lenerith/Core/Engine.hpp>
 
 Lenerith::Audio::Audio() {
   MIX_Init();
   audioDevice = SDL_OpenAudioDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, nullptr);
   mixer = MIX_CreateMixerDevice(audioDevice, nullptr);
-  MIX_SetMixerGain(mixer, Config::instance().masterVolume);
+  MIX_SetMixerGain(mixer, Engine::instance().config.masterVolume);
   musicTrack = MIX_CreateTrack(mixer);
-}
-
-Lenerith::Audio &Lenerith::Audio::instance() {
-  static Audio instance;
-  return instance;
 }
 
 Lenerith::Audio::~Audio() {
@@ -39,7 +35,7 @@ MIX_Audio *Lenerith::Audio::loadMusic(const char *path) {
 void Lenerith::Audio::playSound(MIX_Audio *sound) {
   MIX_Track *track = MIX_CreateTrack(mixer);
   audioTracks.emplace_back(track);
-  MIX_SetTrackGain(track, Config::instance().masterVolume);
+  MIX_SetTrackGain(track, Engine::instance().config.masterVolume);
   MIX_SetTrackAudio(track, sound);
   MIX_PlayTrack(track, 0);
 }
@@ -64,6 +60,10 @@ void Lenerith::Audio::playMusic(MIX_Audio *music) {
 
 void Lenerith::Audio::pauseMusic() {
   MIX_PauseTrack(musicTrack);
+}
+
+void Lenerith::Audio::stopMusic() {
+  MIX_StopTrack(musicTrack, 0);
 }
 
 void Lenerith::Audio::resumeMusic() {

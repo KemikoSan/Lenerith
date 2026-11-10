@@ -18,12 +18,12 @@ private:
   std::vector<MIX_Track *> audioTracks;
 
 public:
-  static Audio &instance();
   MIX_Audio *loadMusic(const char *path);
   void playSound(MIX_Audio *sound);
   void playMusic(MIX_Audio *music);
   void pauseMusic();
   void resumeMusic();
+  void stopMusic();
   void setMasterVolume(float volume);
   void setMusicVolume(float volume);
   void clearTracks();

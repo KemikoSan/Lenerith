@@ -3,11 +3,6 @@
 #include <Lenerith/Input/Input.hpp>
 #include <Lenerith/Input/InputMap.hpp>
 
-Lenerith::Input &Lenerith::Input::instance() {
-  static Lenerith::Input instance;
-  return instance;
-}
-
 bool Lenerith::Input::isKeyPressed(Keyboard key) const {
   return keys[static_cast<int>(key)] && !prevkeys[static_cast<int>(key)];
 }

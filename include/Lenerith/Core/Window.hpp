@@ -2,8 +2,8 @@
 
 #include <string_view>
 
-#include "SDL3/SDL_video.h"
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_video.h>
 
 #include <Lenerith/Core/Config.hpp>
 #include <Lenerith/Core/Display.hpp>
@@ -15,11 +15,11 @@ class LENERITH_API Window {
 private:
   SDL_Window *SDLwindow = nullptr;
   Display *displays = nullptr;
-  int displaysCount;
-  int ScreenWidth;
-  int ScreenHeight;
-  bool isFullScreen;
-  bool isBorderless;
+  int displaysCount = 0;
+  int ScreenWidth = 0;
+  int ScreenHeight = 0;
+  bool isFullScreen = false;
+  bool isBorderless = false;
   int currentMonitor = 0;
   int currentDisplayMode = 0;
 

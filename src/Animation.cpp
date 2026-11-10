@@ -2,7 +2,8 @@
 
 #include <SDL3/SDL_render.h>
 
-#include <Lenerith/Animation.h>
+#include <Lenerith/Animation.hpp>
+#include <Lenerith/Core/Time.hpp>
 
 Lenerith::Animation::Animation(SDL_Texture *tileSet, float tileWidth, float tileHeight, int totalFrames, int fps)
     : tileSet(tileSet), tileWidth(tileWidth), tileHeight(tileHeight), totalFrames(totalFrames), fps(fps) {}
@@ -11,8 +12,8 @@ Lenerith::Animation::~Animation() {
   SDL_DestroyTexture(tileSet);
 }
 
-SDL_FRect Lenerith::Animation::Play(float deltatime) {
-  timer += deltatime;
+SDL_FRect Lenerith::Animation::Play() {
+  timer += Time::deltatime;
   if (timer >= (1.0f / fps)) {
     timer = 0.0f;
     currentFrame = (currentFrame + 1) % totalFrames;

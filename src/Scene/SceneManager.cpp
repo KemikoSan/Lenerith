@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 
-#include <Lenerith/Scene/SceneManager.h>
+#include <Lenerith/Scene/SceneManager.hpp>
 
 Lenerith::Scene *Lenerith::SceneManager::getCurrentScene() {
   return &scenes[currentScene];
@@ -34,8 +34,7 @@ void Lenerith::SceneManager::loadPreviousScene() {
 void Lenerith::SceneManager::loadSceneList() {
   std::ifstream file("assets/scenes.txt");
   std::string line;
-  while (!file.eof()) {
-    std::getline(file, line);
+  while (std::getline(file, line)) {
     if (line != "") {
       scenes.emplace_back(line);
     }

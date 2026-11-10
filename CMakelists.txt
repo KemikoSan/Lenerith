@@ -44,6 +44,9 @@ src/Core/Config.cpp
 src/Core/Audio.cpp
 src/Core/Time.cpp
 src/Core/Game.cpp
+# Time
+src/Time/Timer.cpp
+src/Time/Interval.cpp
 # Math
 src/Math/Vector2.cpp
 # Input
@@ -57,10 +60,10 @@ src/Scene/Scene.cpp
 src/Scene/SceneManager.cpp
 # UI
 # src/UI/UI.cpp
-src/UI/Button.cpp
+# src/UI/Button.cpp
 # Rest
 src/Animation.cpp
-src/Timer.cpp
+
 src/Camera.cpp
 src/TriggerBox.cpp
 )

@@ -2,20 +2,20 @@
 
 #include <cmath>
 
-#include <Lenerith/Math/Vector2.h>
+#include <Lenerith/Math/Vector2.hpp>
 
 Lenerith::Vector2::Vector2(float x, float y) : x(x), y(y) {}
 
 Lenerith::Vector2 Lenerith::Vector2::operator+(const Vector2 &vector) {
-  return Vector2(x + vector.x, y + vector.y);
+  return Vector2{x + vector.x, y + vector.y};
 }
 
 Lenerith::Vector2 Lenerith::Vector2::operator*(const Vector2 &vector) {
-  return Vector2(x * vector.x, y * vector.y);
+  return Vector2{x * vector.x, y * vector.y};
 }
 
 Lenerith::Vector2 Lenerith::Vector2::operator*(float scalar) {
-  return Vector2(x * scalar, y * scalar);
+  return Vector2{x * scalar, y * scalar};
 }
 
 float Lenerith::Vector2::Lenght() const {

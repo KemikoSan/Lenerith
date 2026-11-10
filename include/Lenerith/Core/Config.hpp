@@ -15,6 +15,5 @@ public:
   float musicVolume = 1.0f;
   void loadConfig();
   void saveConfig();
-  static Config &instance();
 };
 }; // namespace Lenerith

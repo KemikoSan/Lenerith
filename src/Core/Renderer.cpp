@@ -4,10 +4,11 @@
 #include <SDL3_image/SDL_image.h>
 
 #include <Lenerith/Core/Config.hpp>
+#include <Lenerith/Core/Engine.hpp>
 #include <Lenerith/Core/Renderer.hpp>
 
 Lenerith::Renderer::Renderer(const Lenerith::Window &window) : SDLrenderer(SDL_CreateRenderer(window.getSDLWindow(), nullptr)) {
-  SDL_SetRenderVSync(SDLrenderer, Config::instance().vsync);
+  SDL_SetRenderVSync(SDLrenderer, Engine::instance().config.vsync);
 }
 
 Lenerith::Renderer::~Renderer() {
